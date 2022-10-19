@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 18:21:59 by aespinos          #+#    #+#             */
-/*   Updated: 2022/10/19 16:33:28 by aespinos         ###   ########.fr       */
+/*   Updated: 2022/10/19 18:17:17 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void	ft_wait_for_input(void)
 		//ft_print_matrix(matrix);
 		free(input);
 		ft_create_lst(matrix);
-		ft_free_matrix(matrix);
 		
 		exit(0);
 	}
