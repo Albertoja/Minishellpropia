@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 18:21:59 by aespinos          #+#    #+#             */
-/*   Updated: 2022/10/18 20:13:49 by aespinos         ###   ########.fr       */
+/*   Updated: 2022/10/19 16:33:28 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	ft_wait_for_input(void)
 {
+	char	**matrix;
 	char	*input;
 	t_all	*all;
 
@@ -24,13 +25,13 @@ void	ft_wait_for_input(void)
 		if (!input)
 			exit(1);
 		check_str(input);
-		all->matrix_input = ft_split_pipe(input, '|');
-		if (!all->matrix_input)
+		matrix = ft_split_pipe(input, '|');
+		if (!matrix)
 			exit(13);
+		//ft_print_matrix(matrix);
 		free(input);
-		exit(0);
-		ft_create_lst(all);
-		ft_free_matrix(all->matrix_input);
+		ft_create_lst(matrix);
+		ft_free_matrix(matrix);
 		
 		exit(0);
 	}
