@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:53:55 by aespinos          #+#    #+#             */
-/*   Updated: 2022/10/19 19:46:05 by aespinos         ###   ########.fr       */
+/*   Updated: 2022/10/19 19:54:53 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,13 +71,13 @@ char	*search_cmds(char *str)
 	{
 		len++;
 	}
-	straux = malloc(sizeof len);
-	while(lenaux <= len)
+	straux = malloc(sizeof(char) * (len + 1));
+	while(lenaux < len)
 	{
 		straux[lenaux] = str[lenaux];
 		lenaux++;
 	}
-	straux[lenaux - 1] = '\0';
+	straux[lenaux] = '\0';
 	printf("comandos:%s\n", straux);
 	return(straux);
 }
