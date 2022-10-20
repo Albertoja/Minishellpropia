@@ -6,17 +6,19 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:53:55 by aespinos          #+#    #+#             */
-/*   Updated: 2022/10/19 19:54:53 by aespinos         ###   ########.fr       */
+/*   Updated: 2022/10/20 17:32:13 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		search_redirection(char *straux)
+char	*search_redirection(char *straux)
 {
 	int	cont;
-
+	char *ret;
+	
 	cont = 0;
+	ret = NULL;
 	while(straux[cont])
 	{
 		if (straux[cont] == '<')
@@ -31,10 +33,20 @@ int		search_redirection(char *straux)
 					if (!straux[cont + 1])
 						ft_error("bad redirection");
 					else
-						return (3);
+					{
+						if (!ret)
+							ret = ft_strdup("3");
+						else
+							ret = ft_strjoin(ret, "3");
+					}
 				}
 				else
-					return (1);
+				{
+					if (!ret)
+						ret = ft_strdup("1");
+					else
+						ret = ft_strjoin(ret, "1");
+				}
 			}
 		}
 		else if (straux[cont] == '>')
@@ -49,15 +61,25 @@ int		search_redirection(char *straux)
 					if (!straux[cont + 1])
 						ft_error("bad redirection");
 					else
-						return (4);
+					{
+						if (!ret)
+							ret = ft_strdup("4");
+						else
+							ret = ft_strjoin(ret, "4");
+					}
 				}
 				else
-					return (2);
+				{
+					if (!ret)
+						ret = ft_strdup("2");
+					else
+						ret = ft_strjoin(ret, "2");
+				}
 			}
 		}
 		cont++;
 	}
-	return (0);
+	return (ret);
 }
 char	*search_cmds(char *str)
 {
@@ -86,17 +108,15 @@ void	ft_create_lst(char **matrix)
 {
 	t_all *head;
 	int	cont;
-	char *straux;
-	int	red;
+	int	cont2;
 	cont = 0;
+	cont2 = 0;
 	head = malloc(sizeof(t_all));
 	while(matrix[cont])
 	{
-		straux = search_cmds(matrix[cont]);
-		red = search_redirection(matrix[cont]);
-		head->cmds = ft_split_pipe(straux, ' ');
-		printf("redireccion:%i\n", red);
-		ft_print_matrix(head->cmds);
+		head->dir = search_redirection(matrix[cont]);
+		printf("redireccion:%s\n", head->dir);
+		head->cmds = ft_split_pipe(search_cmds(matrix[cont]), ' ');
 		cont++;
 		head->next = head;
 	}
@@ -104,4 +124,3 @@ void	ft_create_lst(char **matrix)
 	ft_free_matrix(matrix);
 	ft_lstclear(&head);
 }
-
