@@ -6,21 +6,22 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:53:55 by aespinos          #+#    #+#             */
-/*   Updated: 2022/10/20 17:32:13 by aespinos         ###   ########.fr       */
+/*   Updated: 2022/10/24 19:31:38 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*search_files(char *str)
+char	**search_files(char *str)
 {
-	char	*ret;
+	char	**ret;
+	char	*str_aux;
 	int		cont;
 	int		cont2;
 
 	cont = 0;
 	cont2 = 0;
-	ret = NULL;
+	str_aux = NULL;
 	while (str[cont])
 	{
 		if (str[cont] == '<' || str[cont] == '>')
@@ -34,7 +35,7 @@ char	*search_files(char *str)
 		else
 			cont++;
 	}
-	ret = malloc(sizeof(char) * (cont2 + 1));
+	str_aux = malloc(sizeof(char) * (cont2 + 1));
 	cont2 = 0;
 	cont = 0;
 	while (str[cont])
@@ -44,9 +45,9 @@ char	*search_files(char *str)
 			while (str[cont])
 			{
 				if (str[cont] == '<' || str[cont] == '>')
-					ret[cont2] = ' ';
+					str_aux[cont2] = ' ';
 				else
-					ret[cont2] = str[cont];
+					str_aux[cont2] = str[cont];
 				cont++;
 				cont2++;
 			}
@@ -54,8 +55,9 @@ char	*search_files(char *str)
 		else
 			cont++;
 	}
-	ret[cont2] = '\0';
-	//printf("archivos:%s\n", ret);
+	str_aux[cont2] = '\0';
+	ret = ft_split_pipe(str_aux, ' ');
+	free(str_aux);
 	return(ret);
 }
 char	*search_redirection(char *straux)
@@ -131,11 +133,12 @@ char	*search_redirection(char *straux)
 	}
 	return (ret);
 }
-char	*search_cmds(char *str)
+char	**search_cmds(char *str)
 {
 	char *straux;
 	int len;
 	int lenaux;
+	char **ret;
 	
 	len = 0;
 	lenaux = 0;
@@ -150,31 +153,41 @@ char	*search_cmds(char *str)
 		lenaux++;
 	}
 	straux[lenaux] = '\0';
-	//printf("comandos:%s\n", straux);
-	return(straux);
+	ret = ft_split_pipe(straux, ' ');
+	free(straux);
+	return(ret);
 }
 
-void	ft_create_lst(char **matrix)
+t_all	*ft_parse(char **matrix, int *cont)
 {
-	t_all *head;
-	int	cont;
-	cont = 0;
-	head = malloc(sizeof(t_all));
-	while(matrix[cont])
+	t_all	*head;
+
+	head = ft_calloc(sizeof(t_all), 1);
+	if(matrix[++(*cont)])
 	{
-		head->dir = search_redirection(matrix[cont]);
+		head->dir = search_redirection(matrix[*cont]);
+		head->cmds = search_cmds(matrix[*cont]);
+		head->files = search_files(matrix[*cont]);
 		printf("redireccion:%s\n", head->dir);
-		head->cmds = ft_split_pipe(search_cmds(matrix[cont]), ' ');
 		printf("Comandos:\n");
 		ft_print_matrix(head->cmds);
-		head->files = ft_split_pipe(search_files(matrix[cont]), ' ');
 		printf("Archivos:\n");
 		ft_print_matrix(head->files);
-		cont++;
-		head->next = head;
 		printf("-------------------\n");
 	}
-	head = NULL;
+	return(head);
+}
+t_all	*ft_create_lst(char **matrix)
+{
+	t_all	*head;
+	t_all	*temp;
+	int		cont;
+	
+	cont = -1;
+	head = ft_parse(matrix, &cont);
+	temp = head;
+	while(matrix[cont])
+		ft_lstadd_back(&head, ft_parse(matrix, &cont));
 	ft_free_matrix(matrix);
-	ft_lstclear(&head);
+	return(head);
 }
