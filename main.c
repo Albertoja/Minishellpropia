@@ -21,5 +21,6 @@
 int	main(void)
 {
 	//atexit(leaks);
+	ft_read_history();
 	ft_wait_for_input();
 }

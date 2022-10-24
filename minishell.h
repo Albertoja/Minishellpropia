@@ -19,6 +19,7 @@
 # include <string.h>
 # include <limits.h>
 # include <unistd.h>
+# include <fcntl.h>
 # define RESET				"\x1b[0m"
 # define WHITE				"\x1b[1m"
 # define GRAY				"\x1b[2m"
@@ -29,6 +30,10 @@
 # define BLUE				"\x1b[34m"
 # define PURPLE				"\x1b[35m"
 # define CYAN				"\x1b[36m"
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 3
+# endif
 
 // typedef struct s_list
 // {
@@ -70,4 +75,11 @@ void	*ft_calloc(size_t count, size_t size);
 char	*ft_strdup(const char *s1);
 char	*ft_strjoin(const char *s1, char const *s2);
 size_t	ft_strlen(const char *s);
+void	ft_create_history(char	*input);
+void	ft_putchar_fd(char c, int fd);
+void	ft_putstr_fd(char *s, int fd);
+void	ft_read_history(void);
+char	*get_next_line(int fd);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
+char	*ft_strchr(const char *s, int c);
 #endif

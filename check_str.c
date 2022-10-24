@@ -43,10 +43,8 @@ void	ft_check_pipe(char *str)
 void	check_str(char *str)
 {
 	int	aux;
-	int	aux2;
 
 	aux = 0;
-	aux2 = 0;
 	while (str[aux])
 	{
 		if (str[aux] == 34)
