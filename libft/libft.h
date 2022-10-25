@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 20:06:33 by aespinos          #+#    #+#             */
-/*   Updated: 2022/10/24 18:58:10 by aespinos         ###   ########.fr       */
+/*   Updated: 2022/10/25 17:46:40 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ typedef struct s_list
 }	t_list;
 
 typedef struct s_all {
-	char	**matrix_input;
+	char			**matrix_input;
 	char			**cmds;
 	char			**files;
 	char			*dir;

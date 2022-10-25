@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   create_history.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/25 17:47:51 by aespinos          #+#    #+#             */
+/*   Updated: 2022/10/25 17:48:16 by aespinos         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 void	ft_read_history(void)
@@ -26,7 +38,7 @@ void	ft_read_history(void)
 
 void	ft_create_history(char *input)
 {
-	int fd;
+	int	fd;
 
 	fd = open("history", O_CREAT | O_RDWR | O_APPEND, 0644);
 	if (fd == -1)
@@ -35,5 +47,4 @@ void	ft_create_history(char *input)
 	ft_putstr_fd(input, fd);
 	ft_putchar_fd('\n', fd);
 	close(fd);
-	
 }

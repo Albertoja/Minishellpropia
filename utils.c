@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/25 17:53:17 by aespinos          #+#    #+#             */
+/*   Updated: 2022/10/25 18:03:15 by aespinos         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 char	*ft_strjoin(const char *s1, char const *s2)
@@ -28,7 +40,6 @@ char	*ft_strjoin(const char *s1, char const *s2)
 	free((void *)s1);
 	return (str);
 }
-
 
 char	*ft_strdup(const char *s1)
 {

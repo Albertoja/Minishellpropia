@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 18:21:57 by aespinos          #+#    #+#             */
-/*   Updated: 2022/10/24 19:20:15 by aespinos         ###   ########.fr       */
+/*   Updated: 2022/10/25 20:51:02 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,18 @@
 
 int	ft_count(char const *s, char c, int i)
 {
-	int	a;
+	int		a;
+	char	aux;
 
 	a = 0;
 	while (s[i] != '\0' && s[i] != c)
 	{
-		if (s[i] == 34)
+		if (s[i] == 34 || s[i] == 39)
 		{
+			aux = s[i];
 			i++;
 			a++;
-			while (s[i] != 34)
-			{
-				i++;
-				a++;
-			}
-		}
-		if (s[i] == 39)
-		{
-			i++;
-			a++;
-			while (s[i] != 39)
+			while (s[i] != aux)
 			{
 				i++;
 				a++;
@@ -47,13 +39,12 @@ int	ft_count(char const *s, char c, int i)
 
 int	ft_countwords(char const *s, char c)
 {
-	int	i;
-	int	cont;
+	int		i;
+	int		cont;
+	char	aux;
 
 	i = 0;
 	cont = 0;
-	while (s[i] == c && s[i] != '\0')
-		i++;
 	while (s[i] != '\0')
 	{
 		while (s[i] == c && s[i] != '\0')
@@ -62,44 +53,27 @@ int	ft_countwords(char const *s, char c)
 			break ;
 		while (s[i] != c && s[i] != '\0')
 		{
-			if (s[i] == 34)
+			if (s[i] == 34 || s[i] == 39)
 			{
-				i++;
-				while (s[i] != 34)
+				aux = s[i++];
+				while (s[i] != aux)
 					i++;
 			}
-			if (s[i] == 39)
-			{
-				i++;
-				while (s[i] != 39)
-					i++;
-			}
-				i++;
+			i++;
 		}
 		cont++;
 	}
 	return (cont);
 }
 
-static void	**ft_free(char **str, int i)
-{
-	int	a;
 
-	a = 0;
-	while (a < i)
-	{
-		free (str[a]);
-		a++;
-	}
-	free (str);
-	return (0);
-}
 
 char	**ft_splitaux(char **str, const char *s, char c, int a)
 {
-	int	i;
-	int	j;
-	int	pal;
+	int		i;
+	int		j;
+	int		pal;
+	char	aux;
 
 	pal = ft_countwords(s, c);
 	i = 0;
@@ -108,22 +82,17 @@ char	**ft_splitaux(char **str, const char *s, char c, int a)
 		str[i] = (char *)malloc(sizeof(char) * (ft_count(s, c, a) + 1));
 		if (!str[i])
 		{
-			ft_free(str, i);
+			ft_free_matrix(str);
 			return (NULL);
 		}
 		j = 0;
 		while (s[a] != '\0' && s[a] != c)
 		{
-			if (s[a] == 34)
+			if (s[a] == 34 || s[a] == 39)
 			{
+				aux = s[a];
 				str[i][j++] = s[a++];
-				while (s[a] != 34)
-					str[i][j++] = s[a++];
-			}
-			else if (s[a] == 39)
-			{
-				str[i][j++] = s[a++];
-				while (s[a] != 39)
+				while (s[a] != aux)
 					str[i][j++] = s[a++];
 			}
 			str[i][j++] = s[a++];

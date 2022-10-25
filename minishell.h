@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 18:27:12 by aespinos          #+#    #+#             */
-/*   Updated: 2022/10/24 19:03:28 by aespinos         ###   ########.fr       */
+/*   Updated: 2022/10/25 19:55:44 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,32 +36,6 @@
 #  define BUFFER_SIZE 3
 # endif
 
-// typedef struct s_list
-// {
-// 	char			*content;
-// 	struct s_list	*next;
-// }	t_list;
-
-// typedef struct s_list
-// {
-// 	int				content;
-// 	struct s_list	*next;
-// }					t_list;
-
-// typedef struct s_all {
-// 	char	**matrix_input;
-// 	t_list	**commands;
-// }	t_all;
-
-
-// typedef struct s_all {
-// 	char	**matrix_input;
-// 	char			**cmds;
-// 	char			**files;
-// 	char			*dir;
-// 	struct s_all	*next;
-// }				t_all;
-
 void	ft_wait_for_input(void);
 void	check_str(char *str);
 void	ft_error(char *str);
@@ -79,4 +53,6 @@ void	ft_read_history(void);
 char	*get_next_line(int fd);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strchr(const char *s, int c);
+char	**search_files(char *str);
+char	*search_redirection(char *straux);
 #endif
