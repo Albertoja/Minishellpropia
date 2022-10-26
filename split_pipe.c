@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 18:21:57 by aespinos          #+#    #+#             */
-/*   Updated: 2022/10/25 20:51:02 by aespinos         ###   ########.fr       */
+/*   Updated: 2022/10/26 17:29:13 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,43 +66,32 @@ int	ft_countwords(char const *s, char c)
 	return (cont);
 }
 
-
-
 char	**ft_splitaux(char **str, const char *s, char c, int a)
 {
-	int		i;
-	int		j;
+	int		*i;
 	int		pal;
-	char	aux;
 
 	pal = ft_countwords(s, c);
-	i = 0;
+	i = malloc(sizeof(int) * 2);
+	i[0] = 0;
 	while (pal--)
 	{
-		str[i] = (char *)malloc(sizeof(char) * (ft_count(s, c, a) + 1));
-		if (!str[i])
+		str[i[0]] = (char *)malloc(sizeof(char) * (ft_count(s, c, a) + 1));
+		if (!str[i[0]])
 		{
 			ft_free_matrix(str);
 			return (NULL);
 		}
-		j = 0;
+		i[1] = 0;
 		while (s[a] != '\0' && s[a] != c)
-		{
-			if (s[a] == 34 || s[a] == 39)
-			{
-				aux = s[a];
-				str[i][j++] = s[a++];
-				while (s[a] != aux)
-					str[i][j++] = s[a++];
-			}
-			str[i][j++] = s[a++];
-		}
-		str[i][j] = '\0';
+			hello_norminette(str, s, &i, &a);
+		str[i[0]][i[1]] = '\0';
 		while (s[a] == c && s[a])
 			a++;
-		i++;
+		i[0]++;
 	}
-	str[i] = NULL;
+	str[i[0]] = NULL;
+	free(i);
 	return (str);
 }
 

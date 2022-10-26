@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 18:27:12 by aespinos          #+#    #+#             */
-/*   Updated: 2022/10/25 19:55:44 by aespinos         ###   ########.fr       */
+/*   Updated: 2022/10/26 17:30:28 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,7 @@
 # define BLUE				"\x1b[34m"
 # define PURPLE				"\x1b[35m"
 # define CYAN				"\x1b[36m"
-
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 3
-# endif
+# define BUFFER_SIZE 3
 
 void	ft_wait_for_input(void);
 void	check_str(char *str);
@@ -55,4 +52,5 @@ char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strchr(const char *s, int c);
 char	**search_files(char *str);
 char	*search_redirection(char *straux);
+void	hello_norminette(char **str, char const *s, int **i, int *a);
 #endif
