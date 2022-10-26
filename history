@@ -240,3 +240,17 @@ hoa -a > "gg"a
 "sko`f|akoàf" "offo" >> "archivo1'" > 'archivo2"'aa | ss < aaa <<hh
 "sko`f|akoàf" "offo" >> "archivo1'" > 'archivo2"aa | ss < aaa <<hh
 "sko`f|akoàf" "offo" >> "archivo1'" > 'archivo2"'aa | ss < aaa <<hh
+exit
+"sko`f|akoàf" "offo" >> "archivo1'" > 'archivo2"'aa | ss < aaa <<hh
+exit
+exit 50
+exit
+exit hola
+exit hola
+exit hola
+exit 2
+exit 2
+exit
+exit aaa
+exit aaa
+exit 2

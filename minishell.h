@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 18:27:12 by aespinos          #+#    #+#             */
-/*   Updated: 2022/10/26 18:38:36 by aespinos         ###   ########.fr       */
+/*   Updated: 2022/10/26 19:02:15 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,5 @@ char	**search_files(char *str);
 char	*search_redirection(char *straux);
 void	hello_norminette(char **str, char const *s, int **i, int *a);
 char	**ft_clean_quotes(char **files);
+void	ft_builtins(t_all *head);
 #endif
