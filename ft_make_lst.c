@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:53:55 by aespinos          #+#    #+#             */
-/*   Updated: 2022/10/25 19:56:08 by aespinos         ###   ########.fr       */
+/*   Updated: 2022/10/26 17:49:29 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ t_all	*ft_parse(char **matrix, int *cont)
 		head->dir = search_redirection(matrix[*cont]);
 		head->cmds = search_cmds(matrix[*cont]);
 		head->files = search_files(matrix[*cont]);
+		head->files = ft_clean_quotes(head->files);
 		printf("redireccion:%s\n", head->dir);
 		printf("Comandos:\n");
 		ft_print_matrix(head->cmds);
