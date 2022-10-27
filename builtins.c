@@ -1,5 +1,25 @@
 #include "minishell.h"
 
+int	ft_pwd(void)
+{
+	char	*ret;
+	int		len;
+
+	len = 1;
+	ret = NULL;
+	while (1)
+	{
+		ret = malloc(sizeof(char) * len);
+		if (getcwd(ret, len) == NULL)
+			free(ret);
+		else
+			break ;
+		len++;
+	}
+	printf("%s\n", ret);
+	return (0);
+}
+
 void	ft_exit(char **str)
 {
 	int	env;
@@ -33,4 +53,8 @@ void	ft_builtins(t_all *head)
 {
 	if (ft_strncmp(head->cmds[0], "exit", 10) == 0)
 		ft_exit(head->cmds);
+	else if (ft_strncmp(head->cmds[0], "pwd", 10) == 0)
+		ft_pwd();
+	else if (ft_strncmp(head->cmds[0], "echo", 10) == 0)
+		ft_echo(head->cmds);
 }
