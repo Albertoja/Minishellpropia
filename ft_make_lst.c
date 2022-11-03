@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:53:55 by aespinos          #+#    #+#             */
-/*   Updated: 2022/10/26 17:49:29 by aespinos         ###   ########.fr       */
+/*   Updated: 2022/11/03 18:36:15 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,12 @@ t_all	*ft_parse(char **matrix, int *cont)
 		head->cmds = search_cmds(matrix[*cont]);
 		head->files = search_files(matrix[*cont]);
 		head->files = ft_clean_quotes(head->files);
-		printf("redireccion:%s\n", head->dir);
-		printf("Comandos:\n");
-		ft_print_matrix(head->cmds);
-		printf("Archivos:\n");
-		ft_print_matrix(head->files);
-		printf("-------------------\n");
+		// printf("redireccion:%s\n", head->dir);
+		// printf("Comandos:\n");
+		// ft_print_matrix(head->cmds);
+		// printf("Archivos:\n");
+		// ft_print_matrix(head->files);
+		// printf("-------------------\n");
 	}
 	return (head);
 }

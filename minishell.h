@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 18:27:12 by aespinos          #+#    #+#             */
-/*   Updated: 2022/10/26 19:02:15 by aespinos         ###   ########.fr       */
+/*   Updated: 2022/11/03 18:10:24 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <limits.h>
 # include <unistd.h>
 # include <fcntl.h>
+# include <limits.h>
 # include "libft/libft.h"
 # define RESET				"\x1b[0m"
 # define WHITE				"\x1b[1m"
@@ -33,11 +34,11 @@
 # define CYAN				"\x1b[36m"
 # define BUFFER_SIZE 3
 
-void	ft_wait_for_input(void);
+void	ft_wait_for_input(char **env);
 void	check_str(char *str);
 void	ft_error(char *str);
 char	**ft_split_pipe(char const *s, char c);
-void	ft_print_matrix(char **matrix);
+int 	ft_print_matrix(char **matrix);
 t_all	*ft_create_lst(char **matrix);
 void	*ft_calloc(size_t count, size_t size);
 char	*ft_strdup(const char *s1);
@@ -54,5 +55,8 @@ char	**search_files(char *str);
 char	*search_redirection(char *straux);
 void	hello_norminette(char **str, char const *s, int **i, int *a);
 char	**ft_clean_quotes(char **files);
-void	ft_builtins(t_all *head);
+void	ft_builtins(t_all *head, char **env);
+void	ft_echo(char **str);
+char	**ft_cd(char **cmds, char **env);
+char	*get_pwd(void);
 #endif
