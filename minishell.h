@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 18:27:12 by aespinos          #+#    #+#             */
-/*   Updated: 2022/11/03 18:10:24 by aespinos         ###   ########.fr       */
+/*   Updated: 2022/11/07 19:08:48 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <limits.h>
+# include <dirent.h>
+# include <sys/stat.h>
 # include "libft/libft.h"
 # define RESET				"\x1b[0m"
 # define WHITE				"\x1b[1m"
@@ -59,4 +61,7 @@ void	ft_builtins(t_all *head, char **env);
 void	ft_echo(char **str);
 char	**ft_cd(char **cmds, char **env);
 char	*get_pwd(void);
+void	ft_ls(char **cmds);
+char	**ft_export(char **cmds, char **env);
+int		count_str(char **matrix);
 #endif

@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 17:28:29 by aespinos          #+#    #+#             */
-/*   Updated: 2022/11/03 18:28:18 by aespinos         ###   ########.fr       */
+/*   Updated: 2022/11/07 15:50:27 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,14 @@ char	**change_env(char **env, char *newpath, char *path)
 {
 	int		i;
 
-	i = -1;
-	while (env[++i])
+	i = 0;
+	while (env[i])
 	{
 		if (ft_strncmp(env[i], "PWD=", 4) == 0)
 			env[i] = ft_strjoin("PWD=", newpath);
 		else if (ft_strncmp(env[i], "OLDPWD=", 4) == 0)
 			env[i] = ft_strjoin("OLDPWD=", path);
+		i++;
 	}
 	chdir(newpath);
 	return (env);
@@ -73,12 +74,11 @@ char	*cd_home(char **env)
 	{
 		if (ft_strncmp(*env, "HOME=", 5) == 0)
 		{
-			ret = ft_substr(*env, 5, UINT_MAX);
+			ret = ft_substr(*env, 5, 4294967295);
 			return (ret);
 		}
 		env++;
 	}
-	ft_putstr_fd("minishell: cd : HOME not set\n", 1);
 	return (NULL);
 }
 
