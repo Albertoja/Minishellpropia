@@ -1,19 +1,47 @@
 #include "minishell.h"
+
+int	ft_len_equal(char *str, char a)
+{
+	int	ret;
+
+	ret = 0;
+	while (*str != a && *str != '\0')
+	{
+		ret++;
+		str++;
+	}
+	//write(1, "x", 1);
+	return (ret);
+}
+
+int	ft_comp_var(char *cmds, char **env)
+{
+	int	len;
+	int	ret;
+
+	ret = 0;
+	while (env[ret])
+	{
+		len = ft_len_equal(env[ret], '=');
+		if (ft_strncmp(cmds, env[ret], len) == 0)
+			return (ret);
+		ret++;
+	}
+	return (0);
+}
+
 int	ft_check_export(char *str)
 {
-	if (!ft_strchr(str, '='))
-		return (0);
-	if (ft_isalpha(*str) == 0 && *str != '_')
-		return (0);
-	while (*str != '=')
+	while (*str)
 	{
-		if (*str != '_' && ft_isalnum(*str) == 0)
+		if ((*str >= '0' && *str <= '9') || (*str >= 'A' && *str <= 'Z') || (*str >= 'a' && *str <= 'z') || (*str == '=') || (*str == '_'))
+			str++;
+		else
 			return (0);
-		str++;
 	}
 	return (1);
 }
-static char	**copy_str_matrix(char **env, char *str)
+static char	**copy_str_matrix(char **env, char *str, int a)
 {
 	int		i;
 	char	**new_env;
@@ -21,10 +49,16 @@ static char	**copy_str_matrix(char **env, char *str)
 	i = -1;
 	new_env = malloc(sizeof(char *) * (count_str(env) + 2));
 	while (env[++i])
-		new_env[i] = ft_strdup(env[i]);
-	new_env[i] = ft_strdup(str);
+	{
+		if (i == a && a != 0)
+			new_env[i] = ft_strdup(str);
+		else
+			new_env[i] = ft_strdup(env[i]);
+	}
+	if (a == 0)
+		new_env[i] = ft_strdup(str);
 	new_env[++i] = NULL;
-	ft_free_matrix(env);
+	//ft_free_matrix(env);
 	return (new_env);
 }
 
@@ -32,7 +66,9 @@ char	**ft_export(char **cmds, char **env)
 {
 	int	cont;
 	int	cont2;
+	int	cop;
 
+	cop = 0;
 	cont2 = 1;
 	cont = 0;
 	if (!cmds[1] || !cmds || !*cmds)
@@ -46,15 +82,16 @@ char	**ft_export(char **cmds, char **env)
 	}
 	while(cmds[cont2])
 	{
-		if (ft_check_export(cmds[cont2]) != 1)
+		if (ft_check_export(cmds[cont2]) == 0)
 		{
 			printf("export: `%s': not a valid identifier\n", cmds[cont2]);
 			exit(0);
 		}
-		env = copy_str_matrix(env, cmds[cont2]);
-		ft_print_matrix(env);
-		env = copy_str_matrix(env, cmds[cont2]);
+		cop = ft_comp_var(cmds[cont2], env);
+		printf("------>%i\n", cop);
+		env = copy_str_matrix(env, cmds[cont2], cop);
 		cont2++;
 	}
 	return (env);
 }
+ 

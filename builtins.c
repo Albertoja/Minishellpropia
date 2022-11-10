@@ -6,12 +6,30 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 15:51:39 by aespinos          #+#    #+#             */
-/*   Updated: 2022/11/07 19:08:17 by aespinos         ###   ########.fr       */
+/*   Updated: 2022/11/10 16:41:23 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+int	ft_print_matrix_env(char **env)
+{
+	int	i;
+
+	i = 0;
+	if (!env)
+		return (1);
+	while (env[i])
+	{
+		if (ft_strchr(env[i], '='))
+		{
+			ft_putstr_fd(env[i], 1);
+			ft_putchar_fd('\n', 1);
+		}
+		i++;
+	}
+	return (0);
+}
 int	ft_pwd(void)
 {
 	char	*ret;
@@ -63,7 +81,7 @@ void	ft_exit(char **str)
 	exit(env);
 }
 
-void	ft_builtins(t_all *head, char **env)
+char	**ft_builtins(t_all *head, char **env)
 {
 	if (ft_strncmp(head->cmds[0], "exit", 10) == 0)
 		ft_exit(head->cmds);
@@ -74,7 +92,8 @@ void	ft_builtins(t_all *head, char **env)
 	else if (ft_strncmp(head->cmds[0], "cd", 10) == 0)
 		ft_cd(head->cmds, env);
 	else if (ft_strncmp(head->cmds[0], "env", 10) == 0)
-		ft_print_matrix(env);
+		ft_print_matrix_env(env);
 	else if (ft_strncmp(head->cmds[0], "export", 10) == 0)
 		env = ft_export(head->cmds, env);
+	return (env);
 }

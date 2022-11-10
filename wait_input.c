@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 18:21:59 by aespinos          #+#    #+#             */
-/*   Updated: 2022/11/07 19:08:41 by aespinos         ###   ########.fr       */
+/*   Updated: 2022/11/10 16:20:34 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	ft_wait_for_input(char **env)
 			exit(0);
 		free(input);
 		head = ft_create_lst(matrix);
-		ft_builtins(head, env);
+		env = ft_builtins(head, env);
 		ft_lstclear_minishell(&head);
 	}
 }
