@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 15:51:39 by aespinos          #+#    #+#             */
-/*   Updated: 2022/11/10 16:41:23 by aespinos         ###   ########.fr       */
+/*   Updated: 2022/11/15 19:14:10 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,13 @@ int	ft_pwd(void)
 	return (0);
 }
 
-void	ft_exit(char **str)
+void	ft_exit(char **str, char **envc)
 {
 	int	env;
 	int	cont;
 
 	cont = 0;
+	ft_free_matrix(envc);
 	if (!str[1])
 		exit(0);
 	while (str[1][cont])
@@ -84,7 +85,7 @@ void	ft_exit(char **str)
 char	**ft_builtins(t_all *head, char **env)
 {
 	if (ft_strncmp(head->cmds[0], "exit", 10) == 0)
-		ft_exit(head->cmds);
+		ft_exit(head->cmds, env);
 	else if (ft_strncmp(head->cmds[0], "pwd", 10) == 0)
 		ft_pwd();
 	else if (ft_strncmp(head->cmds[0], "echo", 10) == 0)
@@ -95,5 +96,7 @@ char	**ft_builtins(t_all *head, char **env)
 		ft_print_matrix_env(env);
 	else if (ft_strncmp(head->cmds[0], "export", 10) == 0)
 		env = ft_export(head->cmds, env);
+	else if (ft_strncmp(head->cmds[0], "unset", 10) == 0)
+		env = ft_unset(head->cmds, env);
 	return (env);
 }

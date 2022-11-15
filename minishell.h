@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 18:27:12 by aespinos          #+#    #+#             */
-/*   Updated: 2022/11/10 16:20:17 by aespinos         ###   ########.fr       */
+/*   Updated: 2022/11/15 18:59:34 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,6 @@ char	*get_pwd(void);
 void	ft_ls(char **cmds);
 char	**ft_export(char **cmds, char **env);
 int		count_str(char **matrix);
+int	ft_comp_var(char *cmds, char **env);
+char	**ft_unset(char **cmds, char **env);
 #endif

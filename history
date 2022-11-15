@@ -1,49 +1,6 @@
-export
-export
 export a
-export abc
-export abc
-export abc
-export abc
-export abc
-export abc
-export abc
-export abc=2
-export abc=5
-export acd=2
-export acd=2
-export acd=2
-export acd=2
-d=3
-export
-export acd=3
 exit
-export acd=3
-export acd=2
-export acd=2
-export acd=2
-export acd=2
-export acd=3
-export acd=3
-export acd=3
-export acd=2
-export acd=2
-export acd=3
-export acd=3
-export
-export
-export a=2
-export a=3
-export a
-export
-export a = 4
-export a=4
-env
-eport
-export
-export a=2
-export
-export b=3
-export
-export a=1
-export
+f > archivo1 > archivo2
+f > archivo1 archivo2
+f > archivo1 archivo2 > archivo3
+awk

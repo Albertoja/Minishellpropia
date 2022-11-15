@@ -10,7 +10,6 @@ int	ft_len_equal(char *str, char a)
 		ret++;
 		str++;
 	}
-	//write(1, "x", 1);
 	return (ret);
 }
 
@@ -27,7 +26,7 @@ int	ft_comp_var(char *cmds, char **env)
 			return (ret);
 		ret++;
 	}
-	return (0);
+	return (-1);
 }
 
 int	ft_check_export(char *str)
@@ -50,15 +49,14 @@ static char	**copy_str_matrix(char **env, char *str, int a)
 	new_env = malloc(sizeof(char *) * (count_str(env) + 2));
 	while (env[++i])
 	{
-		if (i == a && a != 0)
+		if (i == a && a != -1)
 			new_env[i] = ft_strdup(str);
 		else
 			new_env[i] = ft_strdup(env[i]);
 	}
-	if (a == 0)
+	if (a == -1)
 		new_env[i] = ft_strdup(str);
 	new_env[++i] = NULL;
-	//ft_free_matrix(env);
 	return (new_env);
 }
 
