@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 15:51:39 by aespinos          #+#    #+#             */
-/*   Updated: 2022/11/15 19:14:10 by aespinos         ###   ########.fr       */
+/*   Updated: 2022/11/17 18:05:06 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	ft_print_matrix_env(char **env)
 	}
 	return (0);
 }
+
 int	ft_pwd(void)
 {
 	char	*ret;
@@ -50,6 +51,15 @@ int	ft_pwd(void)
 	return (0);
 }
 
+void	ft_exit2(char **str)
+{
+	if (str[1][0] == '-' && ft_strncmp("-9223372036854775808", str[1], 21) < 0)
+		printf("minishell: exit: %s: numeric argument required\n", str[1]);
+	else if (str[1][0] != '-' &&
+			ft_strncmp("9223372036854775807", str[1], 21) < 0)
+		printf("minishell: exit: %s: numeric argument required\n", str[1]);
+}
+
 void	ft_exit(char **str, char **envc)
 {
 	int	env;
@@ -66,18 +76,14 @@ void	ft_exit(char **str, char **envc)
 		{
 			if (str[1][0] != '-' && str[1][cont] == '-')
 			{
-				printf("minishell: exit: %s:", str[1]);
+				printf("minishell: exit: %s: ", str[1]);
 				printf("numeric argument required\n");
 				exit(255);
 			}
 		}
 		cont++;
 	}
-	if (str[1][0] == '-' && ft_strncmp("-9223372036854775808", str[1], 21) < 0)
-		printf("minishell: exit: %s: numeric argument required\n", str[1]);
-	else if (str[1][0] != '-' &&
-			ft_strncmp("9223372036854775807", str[1], 21) < 0)
-		printf("minishell: exit: %s: numeric argument required\n", str[1]);
+	ft_exit2(str);
 	env = ft_atoi(str[1]);
 	exit(env);
 }

@@ -6,14 +6,13 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 17:11:38 by aespinos          #+#    #+#             */
-/*   Updated: 2022/11/15 18:56:03 by aespinos         ###   ########.fr       */
+/*   Updated: 2022/11/17 17:45:42 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "minishell.h"
 
-char **ft_delete_str_matrix(char **matrix, int col)
+char	**ft_delete_str_matrix(char **matrix, int col)
 {
 	char	**env;
 	char	**ret;
