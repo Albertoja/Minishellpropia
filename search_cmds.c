@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 17:42:13 by aespinos          #+#    #+#             */
-/*   Updated: 2022/11/17 17:42:14 by aespinos         ###   ########.fr       */
+/*   Updated: 2022/11/17 18:38:04 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ char	**search_cmds(char *str)
 	int		lenaux;
 	char	**ret;
 
+	if (!str || !*str)
+		return (0);
 	ret = NULL;
 	len = 0;
 	lenaux = 0;
