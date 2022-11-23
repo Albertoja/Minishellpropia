@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 17:42:13 by aespinos          #+#    #+#             */
-/*   Updated: 2022/11/17 18:38:04 by aespinos         ###   ########.fr       */
+/*   Updated: 2022/11/23 19:29:44 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ char	**search_cmds(char *str)
 	lenaux = 0;
 	len = ft_cmds_len(str);
 	straux = search_cmds2(str, len);
+	printf("%s\n", straux);
+	//straux = ft_dollar(straux);
 	ret = ft_split_pipe(straux, ' ');
 	free(straux);
 	return (ret);
