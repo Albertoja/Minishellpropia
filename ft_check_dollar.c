@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 18:25:27 by aespinos          #+#    #+#             */
-/*   Updated: 2022/11/23 19:58:31 by aespinos         ###   ########.fr       */
+/*   Updated: 2022/11/24 20:08:52 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,21 @@
 static char	**copy_str_matrix(char **env, char *str, int a)
 {
 	int		i;
-	char	**new_env;
+	char	**new_matrix;
 
 	i = -1;
-	new_env = malloc(sizeof(char *) * (count_str(env) + 2));
+	new_matrix = malloc(sizeof(char *) * (count_str(env) + 1));
 	while (env[++i])
 	{
 		if (i == a && a != -1)
-			new_env[i] = ft_strdup(str);
+			new_matrix[i] = ft_strdup(str);
 		else
-			new_env[i] = ft_strdup(env[i]);
+			new_matrix[i] = ft_strdup(env[i]);
 	}
-	if (a == -1)
-		new_env[i] = ft_strdup(str);
-	new_env[++i] = NULL;
-	return (new_env);
+	// if (a == -1)
+	// 	new_matrix[i] = ft_strdup(str);
+	new_matrix[i] = NULL;
+	return (new_matrix);
 }
 
 char	*search_line_env(char *str, char **env)
@@ -46,7 +46,7 @@ char	*search_line_env(char *str, char **env)
 	{
 		if (ft_strncmp(env[i], str, ft_strlen(str)) == 0)
 		{
-			ret = malloc(sizeof(char) * (ft_strlen(*env) - ft_strlen(str)) + 1);
+			ret = malloc(sizeof(char) * (ft_strlen(env[i]) - ft_strlen(str)) + 1);
 			while (env[i][j])
 			{
 				while (env[i][j] != '=')
@@ -59,6 +59,7 @@ char	*search_line_env(char *str, char **env)
 					j++;
 				}
 			}
+			ret[a] = '\0';
 			return (ret);
 		}
 		i++;
@@ -95,7 +96,6 @@ char	**ft_dollar_sust(char **env, char **mat, int pos)
 	straux = elim_dollar_putequal(mat[pos]);
 	sust = search_line_env(straux, env);
 	ret = copy_str_matrix(mat, sust, pos);
-	
 	return (ret);
 }
 
@@ -110,7 +110,10 @@ char	**ft_dollar(char **mat, char **env)
 	{
 		if (mat[i][0] == '$')
 			ret = ft_dollar_sust(env, ret, i);
+		if (mat[i][0] == '"')
+			mat[i] = ft_dollar_sust_str(mat[i], env);
 		i++;
 	}
+	ft_print_matrix(ret);
 	return(ret);
 }

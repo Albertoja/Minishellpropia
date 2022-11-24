@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 18:27:12 by aespinos          #+#    #+#             */
-/*   Updated: 2022/11/23 19:56:28 by aespinos         ###   ########.fr       */
+/*   Updated: 2022/11/24 18:20:07 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@
 # define BLUE				"\x1b[34m"
 # define PURPLE				"\x1b[35m"
 # define CYAN				"\x1b[36m"
-# define BUFFER_SIZE INT_MAX
+# define BUFFER_SIZE 50
 
 void	ft_wait_for_input(char **env);
 void	check_str(char *str);
@@ -69,4 +69,7 @@ char	**ft_unset(char **cmds, char **env);
 char	**search_cmds(char *str);
 int		ft_comp_var(char *cmds, char **env);
 char	**ft_dollar(char **mat, char **env);
+char	*ft_dollar_sust_str(char *str, char **env);
+char	*search_line_env(char *str, char **env);
+char	*elim_dollar_putequal(char *str);
 #endif
