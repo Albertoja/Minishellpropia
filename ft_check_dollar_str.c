@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 18:06:34 by aespinos          #+#    #+#             */
-/*   Updated: 2022/11/24 20:24:11 by aespinos         ###   ########.fr       */
+/*   Updated: 2022/11/30 19:24:01 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ int	ft_strlen_space(char *str)
 {
 	int	ret;
 
+	if (!str || !*str)
+		return (0);
 	ret = 0;
 	while (str[ret] && str[ret] != ' ')
 		ret++;
@@ -28,18 +30,21 @@ char	*elim_dollar_putequal_str(char *str)
 	int		a;
 	
 	a = 0;
-	while(*str != '$' && str)
+	while(*str && *str != '$')
 		str++;
-	ret = malloc(sizeof(char) * (ft_strlen_space(str)) + 1);
-	str++;
-	while (*str && *str != ' ' && *str != '"')
+	ret = malloc(sizeof(char) * (ft_strlen_space(str) + 1));
+	if (str && *str)
+		str++;
+	while (str && *str && *str != ' ' && *str != '"')
 	{
 		ret[a] = *str;
 		a++;
 		str++;
 	}
+
 	ret[a] = '=';
-	a++;
+	if (ret[a] && ret)
+		a++;
 	ret[a] = '\0';
 	return (ret);
 }
@@ -100,12 +105,13 @@ char *ft_dollar_sust_str(char *str, char **env)
 	int		cont;
 
 	cont = 0;
+	straux1 = str;
 	while (str[cont])
 	{
 		if (str[cont] == '$')
 		{
 			straux1 = dollar_copy_str_01(str, cont);
-			var = elim_dollar_putequal_str(straux1);
+			var = elim_dollar_putequal_str(str);
 			var = search_line_env(var, env);
 			straux1 = ft_strjoin(straux1, var);
 			straux1 = ft_strjoin(straux1, dollar_copy_str_02(str, cont));

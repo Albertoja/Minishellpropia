@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 17:42:13 by aespinos          #+#    #+#             */
-/*   Updated: 2022/11/24 16:45:48 by aespinos         ###   ########.fr       */
+/*   Updated: 2022/11/30 19:15:08 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,12 @@ int	ft_cmds_len(char *str)
 			cont++;
 		while (str[cont] && str[cont] == ' ')
 			cont++;
+		if (str[cont] && str[cont] == '"')
+		{
+			cont++;
+			while (str[cont] && str[cont] != '"')
+				cont++;
+		}
 		while (str[cont] && str[cont] != ' ')
 			cont++;
 	}
@@ -57,6 +63,12 @@ char	*search_cmds2(char *str, int len)
 			cont++;
 		while (str[cont] && str[cont] == ' ')
 			cont++;
+		if (str[cont] && str[cont] == '"')
+		{
+			cont++;
+			while (str[cont] && str[cont] != '"')
+				cont++;
+		}
 		while (str[cont] && str[cont] != ' ')
 			cont++;
 	}

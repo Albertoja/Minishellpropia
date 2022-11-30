@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 19:36:37 by aespinos          #+#    #+#             */
-/*   Updated: 2022/11/17 17:33:36 by aespinos         ###   ########.fr       */
+/*   Updated: 2022/11/30 19:42:20 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,32 @@ char	*search_files02(char *str, int len)
 			}
 			if (str[cont[0]] == ' ')
 				cont[0]++;
-			while (str[cont[0]] && str[cont[0]] != ' ')
+			if (str[cont[0]] == '"')
 			{
-				if (str[cont[0]] == '<' || str[cont[0]] == '>')
-					str_aux[cont[1]] = ' ';
-				else
-					str_aux[cont[1]] = str[cont[0]];
+				str_aux[cont[1]] = str[cont[0]];
 				cont[0]++;
 				cont[1]++;
+				while(str[cont[0]] != '"')
+				{
+					str_aux[cont[1]] = str[cont[0]];
+					cont[0]++;
+					cont[1]++;
+				}
+				str_aux[cont[1]] = str[cont[0]];
+				cont[0]++;
+				cont[1]++;
+			}
+			else
+			{
+				while (str[cont[0]] && str[cont[0]] != ' ')
+				{
+					if (str[cont[0]] == '<' || str[cont[0]] == '>')
+						str_aux[cont[1]] = ' ';
+					else
+						str_aux[cont[1]] = str[cont[0]];
+					cont[0]++;
+					cont[1]++;
+				}
 			}
 		}
 		else
@@ -64,12 +82,27 @@ int	search_files01(char *str)
 				cont++;
 			while (str[cont] == ' ')
 				cont++;
-			while (str[cont] && str[cont] != ' ')
+			if (str[cont] == '"')
 			{
 				cont2++;
 				cont++;
+				while (str[cont] && str[cont] != '"')
+				{
+					cont2++;
+					cont++;
+				}
+				cont2++;
+				cont++;
 			}
-			cont2++;
+			else
+			{
+				while (str[cont] && str[cont] != ' ')
+				{
+					cont2++;
+					cont++;
+				}
+				cont2++;
+			}
 		}
 		else
 			cont++;
