@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:53:55 by aespinos          #+#    #+#             */
-/*   Updated: 2022/11/30 19:42:28 by aespinos         ###   ########.fr       */
+/*   Updated: 2022/12/01 17:41:40 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ t_all	*ft_basic_parse(char *str, t_all *head, char **env)
 	head->cmds = ft_dollar(head->cmds, env);
 	head->files = search_files(str);
 	head->files = ft_dollar(head->files, env);
-	//head->files = ft_clean_quotes(head->files);
+	head->files = ft_clean_quotes(head->files);
+	head->cmds = ft_clean_quotes(head->cmds);
 	return (head);
 }
 

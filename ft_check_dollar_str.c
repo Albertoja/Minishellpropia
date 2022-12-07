@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 18:06:34 by aespinos          #+#    #+#             */
-/*   Updated: 2022/11/30 19:24:01 by aespinos         ###   ########.fr       */
+/*   Updated: 2022/12/07 16:27:11 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ char	*dollar_copy_str_01(char *str, int len)
 		str++;
 	}
 	ret[cont] = '\0';
+	//exit(0);
 	return (ret);
 }
 
@@ -105,7 +106,7 @@ char *ft_dollar_sust_str(char *str, char **env)
 	int		cont;
 
 	cont = 0;
-	straux1 = str;
+	straux1 = ft_strdup(str);
 	while (str[cont])
 	{
 		if (str[cont] == '$')
@@ -115,14 +116,15 @@ char *ft_dollar_sust_str(char *str, char **env)
 			var = search_line_env(var, env);
 			straux1 = ft_strjoin(straux1, var);
 			straux1 = ft_strjoin(straux1, dollar_copy_str_02(str, cont));
-			if(str)
-				free(str);
-			if(var)
-				free(var);
+			free(str);
+			free(var);
+			//exit(0);
 			cont = 0;
-			str = straux1;
+			str = ft_strdup(straux1);
 		}
 		cont++;
 	}
+	if(str)
+		free(str);
 	return (straux1);
 }

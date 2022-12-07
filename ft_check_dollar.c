@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 18:25:27 by aespinos          #+#    #+#             */
-/*   Updated: 2022/11/24 20:08:52 by aespinos         ###   ########.fr       */
+/*   Updated: 2022/12/01 19:40:57 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ static char	**copy_str_matrix(char **env, char *str, int a)
 		else
 			new_matrix[i] = ft_strdup(env[i]);
 	}
-	// if (a == -1)
-	// 	new_matrix[i] = ft_strdup(str);
 	new_matrix[i] = NULL;
 	return (new_matrix);
 }
@@ -60,10 +58,12 @@ char	*search_line_env(char *str, char **env)
 				}
 			}
 			ret[a] = '\0';
+			free(str);
 			return (ret);
 		}
 		i++;
 	}
+	free(str);
 	return (NULL);
 }
 
@@ -96,24 +96,28 @@ char	**ft_dollar_sust(char **env, char **mat, int pos)
 	straux = elim_dollar_putequal(mat[pos]);
 	sust = search_line_env(straux, env);
 	ret = copy_str_matrix(mat, sust, pos);
+	if(straux)
+		free(straux);
+	free(sust);
+	ft_free_matrix(mat);
 	return (ret);
 }
 
 char	**ft_dollar(char **mat, char **env)
 {
-	char	**ret;
 	int		i;
 
-	ret = mat;
 	i = 0;
 	while (mat[i])
 	{
 		if (mat[i][0] == '$')
-			ret = ft_dollar_sust(env, ret, i);
-		if (mat[i][0] == '"')
+			mat = ft_dollar_sust(env, mat, i);
+		else if (mat[i][0] == '"')
+		{
+			//exit(0);
 			mat[i] = ft_dollar_sust_str(mat[i], env);
+		}
 		i++;
 	}
-	ft_print_matrix(ret);
-	return(ret);
+	return(mat);
 }

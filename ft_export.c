@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 17:38:12 by aespinos          #+#    #+#             */
-/*   Updated: 2022/11/21 19:21:07 by aespinos         ###   ########.fr       */
+/*   Updated: 2022/12/01 19:34:05 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ static char	**copy_str_matrix(char **env, char *str, int a)
 	if (a == -1)
 		new_env[i] = ft_strdup(str);
 	new_env[++i] = NULL;
+	ft_free_matrix(env);
 	return (new_env);
 }
 

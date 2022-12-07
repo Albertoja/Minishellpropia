@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 19:00:18 by aespinos          #+#    #+#             */
-/*   Updated: 2022/11/24 16:20:08 by aespinos         ###   ########.fr       */
+/*   Updated: 2022/12/01 17:58:37 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <limits.h>
 #include <stdio.h>
 
-int	ft_endlen(char *line)
+size_t	ft_linelen(const char *line)
 {
 	size_t	i;
 
@@ -26,102 +26,123 @@ int	ft_endlen(char *line)
 	return (i);
 }
 
-char	*ft_textsave(char *text)
+char	*ft_strjoingnl(const char *s1, char const *s2)
+{
+	size_t	i;
+	size_t	k;
+	size_t	len1;
+	size_t	len2;
+	char	*str;
+
+	if (!s1 || !s2)
+		return (NULL);
+	i = -1;
+	k = -1;
+	str = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	if (!str)
+		return (NULL);
+	len1 = ft_strlen(s1);
+	len2 = ft_strlen(s2);
+	while (++i < len1)
+		str[i] = s1[i];
+	while (++k < len2)
+	{
+		str[i] = s2[k];
+		i++;
+	}
+	str[i] = '\0';
+	free((void *)s1);
+	return (str);
+}
+
+static char	*ft_extraline(char *text)
 {
 	size_t	i;
 	size_t	len;
 	size_t	tlen;
-	char	*textaux;
+	char	*exline;
 
 	i = 0;
-	len = ft_endlen(text);
+	len = ft_linelen(text);
 	if (!text[len])
 	{
 		free(text);
 		return (NULL);
 	}
 	tlen = ft_strlen(text);
-	textaux = (char *)malloc(sizeof(char) * (tlen - len + 1));
-	if (!textaux)
+	exline = (char *)malloc(sizeof(char) * (tlen - len + 1));
+	if (!exline)
 		return (NULL);
 	while (len + i < tlen)
 	{
-		textaux[i] = text[i + len];
+		exline[i] = text[i + len];
 		i++;
 	}
-	textaux[i] = '\0';
+	exline[i] = '\0';
 	free(text);
-	return (textaux);
+	return (exline);
 }
 
-char	*ft_returnline(char *textaux)
+static char	*ft_line(char *text)
 {
+	size_t	i;
+	size_t	len;
 	char	*line;
-	int		cont;
 
-	line = (char *)malloc(sizeof(char) * (ft_strlen(textaux) + 1));
-	cont = 0;
-	if (textaux[0] == '\n')
+	i = 0;
+	if (!text[i])
+		return (NULL);
+	len = ft_linelen(text);
+	line = (char *)malloc(sizeof(char) * (len + 1));
+	if (!line)
+		return (NULL);
+	while (i < len)
 	{
-		line[0] = '\n';
-		line[1] = '\0';
-		return (line);
+		line[i] = text[i];
+		i++;
 	}
-	while (textaux[cont] != '\n' && textaux[cont] != '\0')
-	{
-		line[cont] = textaux[cont];
-		cont++;
-	}
-	if (textaux[cont] == '\n')
-	{
-		line[cont] = '\n';
-		cont++;
-	}
-	line[cont] = '\0';
+	line[i] = '\0';
 	return (line);
 }
 
-char	*ft_read(int fd, char *text, int a)
+static char	*ft_read(int fd, char *text)
 {
-	char	*line;
+	ssize_t	nb;
+	char	*buffer;
 
-	line = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	if (!line)
+	buffer = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!buffer)
 		return (NULL);
-	while (!ft_strchr(text, '\n') && a == BUFFER_SIZE)
+	nb = 1;
+	while (!ft_strchr(text, '\n') && nb != 0)
 	{
-		a = read(fd, line, BUFFER_SIZE);
-		if (a == -1)
+		nb = read(fd, buffer, BUFFER_SIZE);
+		if (nb == -1)
 		{
-			free(line);
+			free(buffer);
 			return (NULL);
 		}
-		if (a != 0)
-		{
-			line[a] = '\0';
-			if (!text)
-				text = ft_strdup(line);
-			else
-				text = ft_strjoin(text, line);
-		}
+		buffer[nb] = '\0';
+		if (!text)
+			text = ft_strdup(buffer);
+		else
+			text = ft_strjoingnl(text, buffer);
 	}
-	free (line);
+	free(buffer);
 	return (text);
 }
 
 char	*get_next_line(int fd)
 {
-	static char	*text;
-	char		*textaux;
-	int			a;
+	static char	*text[OPEN_MAX];
+	char		*line;
 
-	a = BUFFER_SIZE;
-	if (BUFFER_SIZE <= 0 || fd < 0 || fd > 1000)
+	if (fd < 0 || fd > OPEN_MAX || BUFFER_SIZE <= 0)
 		return (NULL);
-	text = ft_read(fd, text, a);
-	if (!text)
+	text[fd] = ft_read(fd, text[fd]);
+	if (!text[fd])
 		return (NULL);
-	textaux = ft_returnline(text);
-	text = ft_textsave(text);
-	return (textaux);
+	line = ft_line(text[fd]);
+	text[fd] = ft_extraline(text[fd]);
+	return (line);
 }

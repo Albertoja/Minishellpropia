@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 18:21:50 by aespinos          #+#    #+#             */
-/*   Updated: 2022/11/30 18:55:32 by aespinos         ###   ########.fr       */
+/*   Updated: 2022/12/07 16:55:40 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,13 @@ char	**copy_matrix(char **matrix)
 int	main(int argc, char *argv[], char *envp[])
 {
 	char	**env;
-
+	int		status;
 	//atexit(leaks);
 	if (argc != 1 || argv[1] || !envp)
 		return (0);
+	status = 0;
 	env = copy_matrix(envp);
 	ft_read_history();
-	ft_wait_for_input(env);
+	ft_wait_for_input(env, status);
 	ft_free_matrix(env);
 }

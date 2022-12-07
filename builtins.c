@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 15:51:39 by aespinos          #+#    #+#             */
-/*   Updated: 2022/11/23 18:58:50 by aespinos         ###   ########.fr       */
+/*   Updated: 2022/12/07 17:02:14 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,5 +105,7 @@ char	**ft_builtins(t_all *head, char **env)
 		env = ft_export(head->cmds, env);
 	else if (ft_strncmp(head->cmds[0], "unset", 10) == 0)
 		env = ft_unset(head->cmds, env);
+	else
+		ft_error("command not found", head->cmds[0]);
 	return (env);
 }
