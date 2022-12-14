@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 18:21:44 by aespinos          #+#    #+#             */
-/*   Updated: 2022/12/07 18:27:14 by aespinos         ###   ########.fr       */
+/*   Updated: 2022/12/14 16:53:57 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char	*check_str(char *str)
 			while (str[aux] && str[aux] != 34)
 				aux++;
 			if (str[aux] != 34)
-				return(ft_heredoc(str, '"'));
+				return (ft_endquotes(str, '"'));
 		}
 		if (str[aux] == 39)
 		{
@@ -61,7 +61,7 @@ char	*check_str(char *str)
 			while (str[aux] && str[aux] != 39)
 				aux++;
 			if (str[aux] != 39)
-				ft_error("comillas no cerradas", NULL);
+				return (ft_endquotes(str, '\''));
 		}
 		aux++;
 	}

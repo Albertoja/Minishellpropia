@@ -1,237 +1,33 @@
-
-echo $USER hola $pwd
-echo $USER hola $PWD
-echo $PWD
-echo $PWD
-echo $OLDPWD
-echo $USER
-echo $OLDPWD
-echo $OLDPWD
-echo $USER
-echo $USER
+echo hola adios
+echo "hola que tal"
+echo "hola que tal"
+echo "hola que tal" adios
+echo "hola que tal" adios
+echo "hola que tal" adios
+echo "hola que tal" adios
+echo "hola que tal adios
+echo "hola que tal" adios
+echo "hola que tal" adios
+echo "hola que tal" adios
+echo "hola que tal" adios
+echo "hola que tal" adios
+echo "hola adios" > archivo adios
+echo "hola adios" > archivo adios
+exit
+echo "hola adios" > archivo adios
+exit
+echo "hola adios" > archivo adios
+exit
+echo "hola adios" > archivo adios
+exit
+echo "hola adios" > archivo adios
+echo "hola adios" > archivo adios
+echo hola > "archivo 1" > archivo2
+exit
+echo hola > "archivo 1" > archivo2
+exit
+exit
+echo hola > "archivo 1" > archivo2
+echo hola > "archivo 1" > archivo2
+echo hola > "archivo 1" > archivo2
 exit
-exit
-echo $USER
-exit
-echo hola
-exit
-exit
-echo $USER
-exit
-echo $USER
-echo $USER
-echo $USER
-exit
-echo $USER
-echo $USER
-exit
-exit
-echo $USER
-exit
-echo $USER
-exit
-echo $USER
-echo $USER
-exit
-echo hola "$USER $PWD"
-exit
-exit
-echo hola "$USER $PWD"
-echo hola "$USER $PWD"
-echo hola "$USER $PWD"
-echo hola "$USER $PWD"
-echo hola "$USER $PWD"
-echo hola "$USER $PWD"
-exit
-exit
-echo hola "$USER $PWD"
-echo hola "$USER $PWD"
-echo hola "$USER $PWD"
-echo hola "$USER $PWD"
-echo hola "$USER $PWD"
-exit
-exit
-echo hola "$USER $PWD"
-echo hola "$USER $PWD"
-echo hola "$USER $PWD"
-echo hola "$USER $PWD"
-echo hola "$USER $PWD"
-exit
-echo hola
-exit
-exit
-echo hola
-exit
-echo hola $USER
-echo hola $USER
-echo hola $USER
-echo hola $USER
-echo hola $USER
-exit
-exit
-echo hola $USER
-echo hola $USER
-exit
-exit
-echo hola $USER
-exit
-echo hola "$USER $PWD"
-exit
-exit
-echo hola "$USER $PWD"
-echo hola "$USER $PWD"
-echo hola "$USER $PWD"
-echo hola "$USER $PWD"
-echo hola "$USER $PWD"
-echo hola "$USER $PWD"
-echo hola "$USER $PWD"
-echo hola "$USER $PWD"
-echo hola "$USER $PWD" > "$USER hola"
-exit
-echo hola "$USER $PWD" > "$USER hola"
-echo hola "$USER $PWD" > "$USER hola"
-echo hola "$USER $PWD" > "$USER hola"
-echo hola "$USER $PWD" > "$USER hola"
-echo hola "$USER $PWD" > "$USER hola"
-echo hola "$USER $PWD" > "$USER hola"
-echo hola "$USER $PWD" > "$USER hola"
-echo hola "$USER $PWD" > "$USER hola"
-echo hola "$USER $PWD" > "$USER hola"
-echo hola "$USER $PWD" > "$USER hola"
-echo hola "$USER $PWD" > "$USER hola"
-echo hola "$USER $PWD" > "$USER hola"
-echo hola "$USER $PWD" > "$USER hola"
-echo hola "$USER $PWD" > "$USER hola"
-echo hola "$USER $PWD" > "$USER hola"
-echo hola "$USER $PWD" > "$USER hola"
-exit
-exit
-echo hola "$USER $PWD" > "$USER hola"
-exit
-exit
-echo hola "$USER $PWD" > "$USER hola"
-echo hola "$USER $PWD" > "$USER hola"
-exit
-echo hola "$USER $PWD" > "$USER hola"
-echo hola "$USER $PWD" > "$USER hola"
-exit
-exit
-echo hola "$USER $PWD" > "$USER hola"
-exit
-echo hola "$USER $PWD" > "$USER hola"
-echo hola "$USER $PWD" > "$USER hola"
-echo hola "$USER $PWD" > "$USER hola"
-echo hola "$USER $PWD" > "$USER hola"
-echo hola "$USER $PWD" > "$USER hola"
-echo hola "$USER $PWD" > "$USER hola"
-echo hola "$USER $PWD" > "$USER hola"
-echo hola "$USER $PWD" > "$USER hola"
-exit
-echo hola "$USER $PWD" > "$USER hola"
-exit
-export a=2
-exit
-exit
-export a=2
-export
-exit
-export
-echo hola "$USER $PWD" > "$USER hola"
-export
-exit
-echo hola "$USER $PWD" > "$USER hola"
-exit
-echo hola "$USER $PWD" > "$USER hola"
-exit
-exit
-echo hola "$USER $PWD" > "$USER hola"
-exit
-exit
-echo hola "$USER $PWD" > "$USER hola"
-exit
-echo hola "$USER $PWD" > "$USER hola"
-exit
-echo hola "$USER $PWD" > "$USER hola"
-exit
-echo hola "$USER $PWD" > "$USER hola"
-exit
-exit
-echo hola "$USER $PWD" > "$USER hola"
-exit
-exit
-echo $?
-echo hola "$USER $PWD" > "$USER hola"
-echo $USER
-echo $USER
-echo hola "$USER $PWD" > "$USER hola"
-echo hola "$USER $PWD" > "$USER hola"
-echo hola "$USER $PWD" > "$USER hola"
-echo hola "$USER $PWD" > "$USER hola"
-export a=2
-export
-exit
-echo hola "$USER $PWD" > "$USER hola"
-echo hola "$USER $PWD" > "$USER hola"
-echo hola "$USER $PWD" > "$USER hola"
-exit
-echo hola "$USER $PWD" > "$USER hola"
-exit
-echo hola "$USER $PWD"
-exit
-exit
-exit
-echo hola "$USER $PWD"
-echo hola "$USER $PWD"
-echo hola "$USER $PWD"
-echo hola "$USER $PWD"
-echo hola "$USER $PWD"
-exit
-echo hola "$USER $PWD"
-exit
-echo hola "$USER $PWD"
-exit
-echo hola "$USER $PWD"
-exit
-echo hola "$USER $PWD"
-echo hola "$USER $PWD"
-echo hola "$USER $PWD"
-echo hola "$USER $PWD"
-echo hola "$USER $PWD"
-echo hola "$USER $PWD"
-echo hola "$USER $PWD"
-echo hola "$USER $PWD"
-echo hola "$USER $PWD"
-echo hola "$USER $PWD"
-echo hola "$USER $PWD"
-echo hola "$USER $PWD"
-exit
-exit
-echo hola "$USER $PWD"
-exit
-h
-make
-d
-f
-d
-echo hola
-c
-0
-0
-echo "hola
-echo "hola
-echo "hola
-echo "hola
-echo "hola
-echo "hola
-echo "hola
-echo "hola
-echo "hola
-echo "hola
-echo "hola
-echo "hola
-echo "hola
-echo "hola
-echo "hola
-   echo hola
-echo "hola
-echo "hola

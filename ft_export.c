@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 17:38:12 by aespinos          #+#    #+#             */
-/*   Updated: 2022/12/01 19:34:05 by aespinos         ###   ########.fr       */
+/*   Updated: 2022/12/14 17:56:46 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ int	ft_check_export(char *str)
 	while (*str)
 	{
 		if ((*str >= '0' && *str <= '9') || (*str >= 'A' && *str <= 'Z')
-			|| (*str >= 'a' && *str <= 'z') || (*str == '=') || (*str == '_'))
+			|| (*str >= 'a' && *str <= 'z') || (*str == '=')
+			|| (*str == '_') || (*str == '\n'))
 			str++;
 		else
 			return (0);
@@ -54,7 +55,7 @@ int	ft_check_export(char *str)
 	return (1);
 }
 
-static char	**copy_str_matrix(char **env, char *str, int a)
+char	**copy_str_matrix(char **env, char *str, int a)
 {
 	int		i;
 	char	**new_env;
@@ -71,7 +72,6 @@ static char	**copy_str_matrix(char **env, char *str, int a)
 	if (a == -1)
 		new_env[i] = ft_strdup(str);
 	new_env[++i] = NULL;
-	ft_free_matrix(env);
 	return (new_env);
 }
 

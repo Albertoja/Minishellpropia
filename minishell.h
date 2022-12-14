@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 18:27:12 by aespinos          #+#    #+#             */
-/*   Updated: 2022/12/07 18:34:58 by aespinos         ###   ########.fr       */
+/*   Updated: 2022/12/14 17:28:46 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ char	**ft_dollar(char **mat, char **env);
 char	*ft_dollar_sust_str(char *str, char **env);
 char	*search_line_env(char *str, char **env);
 char	*elim_dollar_putequal(char *str);
-char	*ft_heredoc(char *input, char a);
+char	*ft_endquotes(char *input, char a);
 char	*copy_no_quotes(char *str);
+char	**copy_str_matrix(char **env, char *str, int a);
 #endif

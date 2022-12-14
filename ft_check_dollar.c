@@ -6,58 +6,67 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 18:25:27 by aespinos          #+#    #+#             */
-/*   Updated: 2022/12/01 19:40:57 by aespinos         ###   ########.fr       */
+/*   Updated: 2022/12/14 17:31:24 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	**copy_str_matrix(char **env, char *str, int a)
-{
-	int		i;
-	char	**new_matrix;
+// static char	**copy_str_matrix(char **env, char *str, int a)
+// {
+// 	int		i;
+// 	char	**new_matrix;
 
-	i = -1;
-	new_matrix = malloc(sizeof(char *) * (count_str(env) + 1));
-	while (env[++i])
+// 	i = -1;
+// 	new_matrix = malloc(sizeof(char *) * (count_str(env) + 1));
+// 	while (env[++i])
+// 	{
+// 		if (i == a && a != -1)
+// 			new_matrix[i] = ft_strdup(str);
+// 		else
+// 			new_matrix[i] = ft_strdup(env[i]);
+// 	}
+// 	new_matrix[i] = NULL;
+// 	return (new_matrix);
+// }
+
+char	*search_line_env2(char *ret, char **env, int i)
+{
+	int	j;
+	int	a;
+
+	j = 0;
+	a = 0;
+	while (env[i][j])
 	{
-		if (i == a && a != -1)
-			new_matrix[i] = ft_strdup(str);
-		else
-			new_matrix[i] = ft_strdup(env[i]);
+		while (env[i][j] != '=')
+			j++;
+		j++;
+		while (env[i][j])
+		{
+			ret[a] = env[i][j];
+			a++;
+			j++;
+		}
 	}
-	new_matrix[i] = NULL;
-	return (new_matrix);
+	ret[a] = '\0';
+	return (ret);
 }
 
 char	*search_line_env(char *str, char **env)
 {
 	char	*ret;
-	int	i;
-	int	j;
-	int	a;
+	int		i;
+	int		len;
 
 	i = 0;
-	j = 0;
-	a = 0;
 	while (env[i])
 	{
 		if (ft_strncmp(env[i], str, ft_strlen(str)) == 0)
 		{
-			ret = malloc(sizeof(char) * (ft_strlen(env[i]) - ft_strlen(str)) + 1);
-			while (env[i][j])
-			{
-				while (env[i][j] != '=')
-					j++;
-				j++;
-				while (env[i][j])
-				{
-					ret[a] = env[i][j];
-					a++;
-					j++;
-				}
-			}
-			ret[a] = '\0';
+			len = ft_strlen(env[i]) - ft_strlen(str);
+			ret = malloc(sizeof(char) * (len + 1));
+			ret = search_line_env2(ret, env, i);
 			free(str);
 			return (ret);
 		}
@@ -71,7 +80,7 @@ char	*elim_dollar_putequal(char *str)
 {
 	char	*ret;
 	int		a;
-	
+
 	a = 0;
 	ret = malloc(sizeof(char) * (ft_strlen(str)) + 1);
 	str++;
@@ -96,8 +105,6 @@ char	**ft_dollar_sust(char **env, char **mat, int pos)
 	straux = elim_dollar_putequal(mat[pos]);
 	sust = search_line_env(straux, env);
 	ret = copy_str_matrix(mat, sust, pos);
-	if(straux)
-		free(straux);
 	free(sust);
 	ft_free_matrix(mat);
 	return (ret);
@@ -114,10 +121,9 @@ char	**ft_dollar(char **mat, char **env)
 			mat = ft_dollar_sust(env, mat, i);
 		else if (mat[i][0] == '"')
 		{
-			//exit(0);
 			mat[i] = ft_dollar_sust_str(mat[i], env);
 		}
 		i++;
 	}
-	return(mat);
+	return (mat);
 }

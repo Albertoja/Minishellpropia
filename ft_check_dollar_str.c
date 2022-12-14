@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 18:06:34 by aespinos          #+#    #+#             */
-/*   Updated: 2022/12/07 16:27:11 by aespinos         ###   ########.fr       */
+/*   Updated: 2022/12/14 17:50:18 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,16 @@ int	ft_strlen_space(char *str)
 	ret = 0;
 	while (str[ret] && str[ret] != ' ')
 		ret++;
-	return(ret);
+	return (ret);
 }
 
 char	*elim_dollar_putequal_str(char *str)
 {
 	char	*ret;
 	int		a;
-	
+
 	a = 0;
-	while(*str && *str != '$')
+	while (*str && *str != '$')
 		str++;
 	ret = malloc(sizeof(char) * (ft_strlen_space(str) + 1));
 	if (str && *str)
@@ -41,20 +41,19 @@ char	*elim_dollar_putequal_str(char *str)
 		a++;
 		str++;
 	}
-
 	ret[a] = '=';
 	if (ret[a] && ret)
 		a++;
 	ret[a] = '\0';
 	return (ret);
 }
+
 char	*dollar_copy_str_02(char *str, int len)
 {
-	char	*ret;
-	int		lenaux;
-	int		cont;
+	char		*ret;
+	int			lenaux;
+	static int	cont;
 
-	cont = 0;
 	while (str[len] != ' ' && str[len])
 		len++;
 	lenaux = len;
@@ -65,22 +64,19 @@ char	*dollar_copy_str_02(char *str, int len)
 	}
 	ret = malloc(sizeof(char) * (cont) + 1);
 	cont = 0;
-	while(str[lenaux])
-	{
-		ret[cont] = str[lenaux];
-		cont++;
-		lenaux++;
-	}
-	if(!*ret)
+	while (str[lenaux])
+		ret[cont++] = str[lenaux++];
+	if (!*ret)
 	{
 		ret = malloc(sizeof(char) * (cont) + 2);
 		ret[0] = '"';
 		ret[1] = '\0';
-		return(ret);
+		return (ret);
 	}
 	ret[cont] = '\0';
-	return(ret);
+	return (ret);
 }
+
 char	*dollar_copy_str_01(char *str, int len)
 {
 	char	*ret;
@@ -95,11 +91,10 @@ char	*dollar_copy_str_01(char *str, int len)
 		str++;
 	}
 	ret[cont] = '\0';
-	//exit(0);
 	return (ret);
 }
 
-char *ft_dollar_sust_str(char *str, char **env)
+char	*ft_dollar_sust_str(char *str, char **env)
 {
 	char	*straux1;
 	char	*var;
@@ -118,13 +113,12 @@ char *ft_dollar_sust_str(char *str, char **env)
 			straux1 = ft_strjoin(straux1, dollar_copy_str_02(str, cont));
 			free(str);
 			free(var);
-			//exit(0);
 			cont = 0;
 			str = ft_strdup(straux1);
 		}
 		cont++;
 	}
-	if(str)
+	if (str)
 		free(str);
 	return (straux1);
 }
