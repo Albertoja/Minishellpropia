@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 18:21:57 by aespinos          #+#    #+#             */
-/*   Updated: 2022/11/30 19:06:36 by aespinos         ###   ########.fr       */
+/*   Updated: 2022/12/15 19:55:17 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,43 +66,52 @@ int	ft_countwords(char const *s, char c)
 	return (cont);
 }
 
+char	**ft_splitaux2(char **str, const char *s, char c, int *cont)
+{
+	char	aux;
 
+	cont[1] = 0;
+	while (s[cont[3]] != '\0' && s[cont[3]] != c)
+	{
+		if (s[cont[3]] == 34 || s[cont[3]] == 39)
+		{
+			aux = s[cont[3]];
+			str[cont[0]][cont[1]++] = s[(cont[3])++];
+			while (s[cont[3]] != aux)
+				str[cont[0]][cont[1]++] = s[(cont[3])++];
+		}
+		str[cont[0]][cont[1]++] = s[(cont[3])++];
+	}
+	str[cont[0]][cont[1]] = '\0';
+	while (s[cont[3]] == c && s[cont[3]])
+		(cont[3])++;
+	return (str);
+}
 
 char	**ft_splitaux(char **str, const char *s, char c, int a)
 {
-	int		i;
-	int		j;
 	int		pal;
-	char	aux;
+	int		*cont;
 
+	cont = malloc(3);
+	cont[0] = 0;
+	cont[1] = 0;
+	cont[3] = a;
 	pal = ft_countwords(s, c);
-	i = 0;
 	while (pal--)
 	{
-		str[i] = (char *)malloc(sizeof(char) * (ft_count(s, c, a) + 1));
-		if (!str[i])
+		str[cont[0]] = (char *)malloc(sizeof(char) * (ft_count(s, c, a) + 1));
+		if (!str[cont[0]])
 		{
 			ft_free_matrix(str);
+			free(cont);
 			return (NULL);
 		}
-		j = 0;
-		while (s[a] != '\0' && s[a] != c)
-		{
-			if (s[a] == 34 || s[a] == 39)
-			{
-				aux = s[a];
-				str[i][j++] = s[a++];
-				while (s[a] != aux)
-					str[i][j++] = s[a++];
-			}
-			str[i][j++] = s[a++];
-		}
-		str[i][j] = '\0';
-		while (s[a] == c && s[a])
-			a++;
-		i++;
+		str = ft_splitaux2(str, s, c, cont);
+		cont[0]++;
 	}
-	str[i] = NULL;
+	str[cont[0]] = NULL;
+	free(cont);
 	return (str);
 }
 
@@ -118,6 +127,6 @@ char	**ft_split_pipe(char const *s, char c)
 	if (!str)
 		return (NULL);
 	while (s[a] == c)
-		a++;
+		(a)++;
 	return (ft_splitaux(str, s, c, a));
 }
