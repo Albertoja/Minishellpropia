@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 17:52:36 by aespinos          #+#    #+#             */
-/*   Updated: 2022/12/14 17:54:58 by aespinos         ###   ########.fr       */
+/*   Updated: 2022/12/19 16:18:18 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ char	*sust_a(char *input, char a)
 	aux[j] = a;
 	j++;
 	aux[j] = '\0';
+	free(input);
 	return (aux);
 }
 
@@ -92,10 +93,18 @@ char	*ft_endquotes(char *oldinput, char a)
 			while (input[i])
 				i++;
 			if (input[i - 1] == a)
+			{
+				free(input);
+				free(firstcmd);
 				return (oldinput);
+			}
 			else
 				i = 0;
 		}
+		else
+			oldinput = ft_strjoin(oldinput, "\n");
 	}
+	free(firstcmd);
+	free(input);
 	return (oldinput);
 }

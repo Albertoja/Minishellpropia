@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 18:43:33 by aespinos          #+#    #+#             */
-/*   Updated: 2022/12/15 18:57:14 by aespinos         ###   ########.fr       */
+/*   Updated: 2022/12/19 16:35:17 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,9 @@ void	search_filescont01(char *str, int *cont)
 
 int	search_files01(char *str)
 {
-	int	*cont;
+	int	cont[2];
 	int	ret;
 
-	cont = malloc(2);
 	cont[0] = 0;
 	cont[1] = 0;
 	while (str[cont[0]])
@@ -56,7 +55,6 @@ int	search_files01(char *str)
 		else
 			cont[0]++;
 	}
-	free (cont);
 	ret = cont[1];
 	return (ret);
 }
