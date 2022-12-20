@@ -1,63 +1,46 @@
-echo "hola
-exit
-echo hola
-exit
-echo "hola adios"
-exit
-exit
-echo "hola
-exit
-echo "hola
-exit
-echo "hola
-exit
-echo "hola
-exit
-echo "hola
-echo "hola
-echo "hola
-exit
-echo "hola
-echo "hola
-exit
-echo "hola
-exit
-echo "hola
-exit
-echo "hola
-echo "hola
-exit
-echo "hola
-exit
-echo "hola
-echo "hola
-echo "hola
-echo "hola
-echo hol
-echo hol
-echo hol
-echo hol
-echo hol
-echo hola
-echo hola
-echo hola
-echo hola
-echo hola
-echo hola
-echo hola
-echo hola
-echo hola
-echo hola
-exi
-exit
-echo "hola
-echo "hola
-echo "hola
-echo "hola
-echo "hola
-exit
-echo "hola
-echo hola
 echo hola adios
+echo "hola que tal"
+echo "hola que tal"
+echo "hola que tal" adios
+echo "hola que tal" adios
+echo "hola que tal" adios
+echo "hola que tal" adios
+echo "hola que tal adios
+echo "hola que tal" adios
+echo "hola que tal" adios
+echo "hola que tal" adios
+echo "hola que tal" adios
+echo "hola que tal" adios
+echo "hola adios" > archivo adios
+echo "hola adios" > archivo adios
+exit
+echo "hola adios" > archivo adios
+exit
+echo "hola adios" > archivo adios
+exit
+echo "hola adios" > archivo adios
+exit
+echo "hola adios" > archivo adios
+echo "hola adios" > archivo adios
+echo hola > "archivo 1" > archivo2
+exit
+echo hola > "archivo 1" > archivo2
+exit
+exit
+echo hola > "archivo 1" > archivo2
+echo hola > "archivo 1" > archivo2
+echo hola > "archivo 1" > archivo2
+exit
+echo "$USER hola $USER"
+exit
+echo "$USER hola $USER"
+exit
 echo "hola
+echo "hola
+exit
+echo "hola
+echo "hola
+exit
+echo "hola
+echo "$USER hola $USER"
 exit

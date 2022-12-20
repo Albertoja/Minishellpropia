@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 18:21:50 by aespinos          #+#    #+#             */
-/*   Updated: 2022/12/19 16:46:27 by aespinos         ###   ########.fr       */
+/*   Updated: 2022/12/13 17:22:57 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int	main(int argc, char *argv[], char *envp[])
 {
 	char	**env;
 	int		status;
+
 	//atexit(leaks);
 	if (argc != 1 || argv[1] || !envp)
 		return (0);
