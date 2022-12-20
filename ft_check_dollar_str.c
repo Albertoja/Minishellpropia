@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 18:06:34 by aespinos          #+#    #+#             */
-/*   Updated: 2022/12/14 17:50:18 by aespinos         ###   ########.fr       */
+/*   Updated: 2022/12/20 18:54:08 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,8 @@ char	*ft_dollar_sust_str(char *str, char **env)
 	int		cont;
 
 	cont = 0;
-	straux1 = ft_strdup(str);
+	if (!str || !*str)
+		return (str);
 	while (str[cont])
 	{
 		if (str[cont] == '$')
@@ -110,15 +111,15 @@ char	*ft_dollar_sust_str(char *str, char **env)
 			var = elim_dollar_putequal_str(str);
 			var = search_line_env(var, env);
 			straux1 = ft_strjoin(straux1, var);
-			straux1 = ft_strjoin(straux1, dollar_copy_str_02(str, cont));
+			str = dollar_copy_str_02(str, cont);
+			straux1 = ft_strjoin(straux1, str);
 			free(str);
 			free(var);
 			cont = 0;
-			str = ft_strdup(straux1);
+			str = straux1;
+			free(straux1);
 		}
 		cont++;
 	}
-	if (str)
-		free(str);
-	return (straux1);
+	return (str);
 }
