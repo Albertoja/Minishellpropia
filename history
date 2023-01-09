@@ -49,4 +49,3 @@ echo "hola adios"
 echo
 echo $USER
 exit
-echo $USER
