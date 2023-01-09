@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 15:57:26 by aespinos          #+#    #+#             */
-/*   Updated: 2022/12/14 17:53:14 by aespinos         ###   ########.fr       */
+/*   Updated: 2023/01/09 17:49:10 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,9 @@ void	ft_echo(char **str)
 {
 	int	cont;
 	int	sw;
+	int	a;
 
+	a = 0;
 	sw = 0;
 	cont = 1;
 	while (str[cont] && ft_compare_n(str[cont]) == 1)

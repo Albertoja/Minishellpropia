@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 18:25:27 by aespinos          #+#    #+#             */
-/*   Updated: 2022/12/14 17:31:24 by aespinos         ###   ########.fr       */
+/*   Updated: 2023/01/09 17:07:32 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,9 +113,13 @@ char	**ft_dollar_sust(char **env, char **mat, int pos)
 char	**ft_dollar(char **mat, char **env)
 {
 	int		i;
+	int		a;
 
+	a = 0;
 	i = 0;
-	while (mat[i])
+	while (mat[a])
+		a++;
+	while (i < a)
 	{
 		if (mat[i][0] == '$')
 			mat = ft_dollar_sust(env, mat, i);
