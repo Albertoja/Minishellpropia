@@ -329,3 +329,13 @@ echo "$PWD hola  "
 echo "$PWD hola $a"
 echo "$PWD hola $a"
 hola
+echo "$PWD
+echo "hola
+echo "hola
+echo "hola
+echo "$USER
+echo "$USER
+echo "$USER
+exit
+echo "hola
+exit
