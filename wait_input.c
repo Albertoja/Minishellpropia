@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 18:21:59 by aespinos          #+#    #+#             */
-/*   Updated: 2023/01/10 17:58:16 by aespinos         ###   ########.fr       */
+/*   Updated: 2023/01/10 18:43:17 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_wait_for_input(char **env, int status)
 	status = 0;
 	while (1)
 	{
-		input = readline(YELLOW"Minishell $>"RESET);
+		input = readline(RED"M"BLUE"i"GREEN"n"GRAY"i"PURPLE"s"CYAN"h"WHITE"e"YELLOW"ll"RESET" $>");
 		if (input && *input)
 		{
 			ft_create_history(input);
@@ -29,10 +29,11 @@ void	ft_wait_for_input(char **env, int status)
 			matrix = ft_split_pipe(input, '|');
 			if (!matrix)
 				exit(0);
-			free(input);
 			head = ft_create_lst(matrix, env);
 			env = ft_builtins(head, env);
 			ft_lstclear_minishell(&head);
+			//exit(0);
 		}
+		free(input);
 	}
 }

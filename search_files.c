@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 19:36:37 by aespinos          #+#    #+#             */
-/*   Updated: 2023/01/09 16:48:37 by aespinos         ###   ########.fr       */
+/*   Updated: 2023/01/10 18:12:06 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ char	*search_files02(char *str, int len)
 	int		cont[2];
 	char	*str_aux;
 
-	//cont = malloc(2);
 	cont[0] = 0;
 	cont[1] = 0;
 	str_aux = malloc(sizeof(char) * (len + 1));
