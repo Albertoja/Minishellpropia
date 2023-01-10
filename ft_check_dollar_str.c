@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 18:06:34 by aespinos          #+#    #+#             */
-/*   Updated: 2023/01/10 16:38:11 by aespinos         ###   ########.fr       */
+/*   Updated: 2023/01/10 17:50:48 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,8 @@ char	*dollar_copy_str_02(char *str, int len)
 		ret[cont++] = str[lenaux++];
 	if (!*ret)
 	{
-		ret = malloc(sizeof(char) * (cont) + 2);
+		free(ret);
+		ret = malloc(sizeof(char) * 2);
 		ret[0] = '"';
 		ret[1] = '\0';
 		return (ret);
@@ -99,10 +100,11 @@ char	*ft_dollar_sust_str(char *str, char **env)
 {
 	char	*straux1;
 	char	*var;
+	char	*ret;
 	int		cont;
 
 	cont = 0;
-	straux1 = ft_strdup(str);
+	straux1 = str;
 	while (str[cont])
 	{
 		if (str[cont] == '$')
@@ -113,15 +115,15 @@ char	*ft_dollar_sust_str(char *str, char **env)
 			if (!var)
 				var = ft_strdup(" ");
 			straux1 = ft_strjoin(straux1, var);
-			straux1 = ft_strjoin(straux1, dollar_copy_str_02(str, cont));
+			ret = dollar_copy_str_02(str, cont);
+			straux1 = ft_strjoin(straux1, ret);
+			free(ret);
 			free(str);
 			free(var);
 			cont = 0;
-			str = ft_strdup(straux1);
+			str = straux1;
 		}
 		cont++;
 	}
-	if (str)
-		free(str);
 	return (straux1);
 }
