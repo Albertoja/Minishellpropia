@@ -143,3 +143,86 @@ echo $USER
 echo $USER
 echo hola
 exit
+echo hola
+echo hola
+echo $USER
+echo "$USER"
+echo "$USER $PWD"
+echo "$USER $a"
+echo $a
+exit
+echo "$USER $a"
+echo "$a"
+echo "$a"
+echo "$a"
+echo "$a"
+echo "$a"
+echo "$a"
+echo "$a"
+echo "$a"
+echo "$a"
+echo "$a"
+echo "hola$USER"
+echo "hola$USER"
+echo "hola$USER"
+echo "hola$USER"
+echo "hola$USER"
+echo "hola$a"
+echo "$a"
+echo "$a"
+echo "$a"
+echo "$a"
+echo "$a"
+make
+exit
+exit
+make
+echo "$a"
+echo "$ahola"
+echo "hola$a"
+echo "$a hola"
+exit
+ecch
+echo "hola adios"
+echo "hola adios"
+echo "$PWD"
+echo "$PWD"
+exit
+echo "$PWD"
+make
+echo "$PWD"
+echo "$PWD"
+exit
+exit
+echo "$PWD"
+echo "$PWD hola"
+echo "adios hola"
+echo "adios $hola"
+echo "adios $PWD"
+echo "$PWD hola"
+echo "$PWD hola"
+echo "$PWD hola"
+echo "$PWD hola"
+echo "$PWD hola"
+echo "$PWD hola"
+echo "$PWD hola"
+echo "$PWD hola"
+echo "$PWD hola"
+echo "$PWD hola"
+echo "$PWD hola"
+echo "$PWD hola"
+echo "$PWD hola"
+echo "$PWD hola"
+echo "$PWD hola"
+echo "$PWD hola"
+echo "$PWD hola"
+exit
+echo "$PWD hola"
+echo "$PWD $PWD"
+echo "$PWD $USER"
+echo "hola $USER"
+echo "hola$USER"
+echo "hola$a"
+echo "$ahola"
+echo "$a hola"
+exit

@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 18:45:37 by aespinos          #+#    #+#             */
-/*   Updated: 2023/01/09 17:40:30 by aespinos         ###   ########.fr       */
+/*   Updated: 2023/01/10 16:53:12 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ char	*copy_no_quotes(char *str)
 				i++;
 				str++;
 			}
+			if (aux[i] != com)
+				break;
 		}
 		if (*str != com)
 			aux[i++] = *str;
