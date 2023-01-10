@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 17:38:12 by aespinos          #+#    #+#             */
-/*   Updated: 2022/12/14 17:56:46 by aespinos         ###   ########.fr       */
+/*   Updated: 2023/01/10 16:16:04 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,11 @@ char	**copy_str_matrix(char **env, char *str, int a)
 			new_env[i] = ft_strdup(env[i]);
 	}
 	if (a == -1)
+	{
 		new_env[i] = ft_strdup(str);
-	new_env[++i] = NULL;
+		i++;
+	}
+	new_env[i] = NULL;
 	return (new_env);
 }
 
