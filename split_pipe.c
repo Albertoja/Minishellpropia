@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 18:21:57 by aespinos          #+#    #+#             */
-/*   Updated: 2023/01/10 16:11:33 by aespinos         ###   ########.fr       */
+/*   Updated: 2023/01/17 18:19:39 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,11 +80,6 @@ char	**ft_splitaux(char **str, const char *s, char c, int a)
 	while (pal--)
 	{
 		str[i] = (char *)malloc(sizeof(char) * (ft_count(s, c, a) + 1));
-		if (!str[i])
-		{
-			ft_free_matrix(str);
-			return (NULL);
-		}
 		j = 0;
 		while (s[a] != '\0' && s[a] != c)
 		{
@@ -112,7 +107,7 @@ char	**ft_split_pipe(char const *s, char c)
 	char	**str;
 
 	a = 0;
-	if (!s)
+	if (!s || !*s || s == NULL)
 		return (NULL);
 	str = (char **)malloc(sizeof(char *) * (ft_countwords(s, c) + 1));
 	if (!str)

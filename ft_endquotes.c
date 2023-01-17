@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 17:52:36 by aespinos          #+#    #+#             */
-/*   Updated: 2023/01/10 18:00:10 by aespinos         ###   ########.fr       */
+/*   Updated: 2023/01/10 19:14:43 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,7 @@ char	*ft_endquotes(char *oldinput, char a)
 {
 	char	*input;
 	int		i;
-	char	*firstcmd;
 
-	firstcmd = search_first_cmd(oldinput);
 	i = 0;
 	while (1)
 	{
@@ -93,18 +91,13 @@ char	*ft_endquotes(char *oldinput, char a)
 			while (input[i])
 				i++;
 			if (input[i - 1] == a)
-			{
-				free(input);
-				free(firstcmd);
-				return (oldinput);
-			}
+				break ;
 			else
 				i = 0;
 		}
 		else
 			oldinput = ft_strjoin(oldinput, "\n");
 	}
-	free(firstcmd);
 	free(input);
 	return (oldinput);
 }

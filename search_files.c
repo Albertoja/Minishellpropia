@@ -1,133 +1,79 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   search_files.c                                     :+:      :+:    :+:   */
+/*   new_search_files.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/25 19:36:37 by aespinos          #+#    #+#             */
-/*   Updated: 2023/01/10 18:12:06 by aespinos         ###   ########.fr       */
+/*   Created: 2023/01/17 15:57:27 by aespinos          #+#    #+#             */
+/*   Updated: 2023/01/17 18:20:48 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*search_files04(char *str, char *str_aux, int *cont)
+char	*ft_noquotes_files(char *str, char a)
 {
-	while (str[cont[0]] && str[cont[0]] != ' ')
-	{
-		if (str[cont[0]] == '<' || str[cont[0]] == '>')
-			str_aux[cont[1]] = ' ';
-		else
-			str_aux[cont[1]] = str[cont[0]];
-		cont[0]++;
-		cont[1]++;
-	}
-	return (str_aux);
+	str++;
+	while (*str != a)
+		str++;
+	return (str);
 }
 
-char	*search_files03(char *str, char *str_aux, int *cont)
+char	*ft_quotes_files(char *str, char a)
 {
-	str_aux[cont[1]] = str[cont[0]];
-	cont[0]++;
-	cont[1]++;
-	while (str[cont[0]] != '"')
-	{
-		str_aux[cont[1]] = str[cont[0]];
-		cont[0]++;
-		cont[1]++;
-	}
-	str_aux[cont[1]] = str[cont[0]];
-	cont[0]++;
-	cont[1]++;
-	return (str_aux);
-}
-char	*search_files02(char *str, int len)
-{
-	int		cont[2];
-	char	*str_aux;
-
-	cont[0] = 0;
-	cont[1] = 0;
-	str_aux = malloc(sizeof(char) * (len + 1));
-	while (str[cont[0]])
-	{
-		if (str[cont[0]] == '<' || str[cont[0]] == '>')
-		{
-			while (str[cont[0]] == '<' || str[cont[0]] == '>')
-			{
-				str_aux[cont[1]] = ' ';
-				cont[1]++;
-				cont[0]++;
-			}
-			if (str[cont[0]] == ' ')
-				cont[0]++;
-			if (str[cont[0]] == '"')
-				str_aux = search_files03(str, str_aux, cont);
-			else
-				str_aux = search_files04(str, str_aux, cont);
-		}
-		else
-			cont[0]++;
-	}
-	str_aux[cont[1]] = '\0';
-	return (str_aux);
-}
-
-int	search_files01(char *str)
-{
-	int	cont;
-	int	cont2;
+	char	*ret;
+	int		cont;
 
 	cont = 0;
-	cont2 = 0;
-	while (str[cont])
-	{
-		if (str[cont] == '<' || str[cont] == '>')
-		{
-			while (str[cont] == '<' || str[cont] == '>')
-				cont++;
-			while (str[cont] == ' ')
-				cont++;
-			if (str[cont] == '"')
-			{
-				cont2++;
-				cont++;
-				while (str[cont] && str[cont] != '"')
-				{
-					cont2++;
-					cont++;
-				}
-				cont2++;
-				cont++;
-			}
-			else
-			{
-				while (str[cont] && str[cont] != ' ')
-				{
-					cont2++;
-					cont++;
-				}
-				cont2++;
-			}
-		}
-		else
-			cont++;
-	}
-	return (cont2);
+	while (str[cont] && str[cont] != a)
+		cont++;
+	ret = malloc(sizeof(char) * (cont + 1));
+	cont = 0;
+	while (*str && *str != a)
+		ret[cont++] = *str++;
+	ret[cont] = '\0';
+	return (ret);
+}
+
+char	*ft_in_files(char *str)
+{
+	char	*ret;
+	int		cont;
+
+	cont = 0;
+	while (*str == '<' || *str == '>' || *str == ' ')
+		str++;
+	if (*str == '"')
+		return (ft_quotes_files(++str, '"'));
+	else
+		return (ft_quotes_files(str, ' '));
+	return (ret);
 }
 
 char	**search_files(char *str)
 {
-	char	**ret;
 	char	*str_aux;
-	int		cont;
-	int		cont2;
+	char	**ret;
 
-	cont = 0;
-	cont2 = search_files01(str);
-	str_aux = search_files02(str, cont2);
-	ret = ft_split_pipe(str_aux, ' ');
-	free(str_aux);
+	str_aux = NULL;
+	while (*str)
+	{
+		if (*str == '<' || *str == '>')
+		{
+			while (*str == '<' || *str == '>' || *str == ' ')
+				str++;
+			if (!str_aux)
+				str_aux = ft_strdup(ft_in_files(str));
+			else
+				str_aux = ft_strjoin(str_aux, ft_in_files(str));
+			str_aux = ft_strjoin(str_aux, "|");
+		}
+		if (*str == '"')
+			str = ft_noquotes_files(str, '"');
+		str++;
+	}
+	ret = ft_split_pipe(str_aux, '|');
+	free (str_aux);
 	return (ret);
 }

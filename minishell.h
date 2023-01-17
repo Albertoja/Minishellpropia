@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 18:27:12 by aespinos          #+#    #+#             */
-/*   Updated: 2023/01/09 17:43:09 by aespinos         ###   ########.fr       */
+/*   Updated: 2023/01/17 19:08:38 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	*check_str(char *str);
 void	ft_error(char *str, char *straux);
 char	**ft_split_pipe(char const *s, char c);
 int		ft_print_matrix(char **matrix);
-t_all	*ft_create_lst(char **matrix, char **env);
+t_all	*ft_create_lst(char **matrix);
 void	*ft_calloc(size_t count, size_t size);
 char	*ft_strdup(const char *s1);
 char	*ft_strjoin(const char *s1, char const *s2);
@@ -68,12 +68,13 @@ int		ft_comp_var(char *cmds, char **env);
 char	**ft_unset(char **cmds, char **env);
 char	**search_cmds(char *str);
 int		ft_comp_var(char *cmds, char **env);
-char	**ft_dollar(char **mat, char **env);
+char	*ft_dollar(char *input, char **env);
 char	*ft_dollar_sust_str(char *str, char **env);
 char	*search_line_env(char *str, char **env);
 char	*elim_dollar_putequal(char *str);
 char	*ft_endquotes(char *input, char a);
 char	*copy_no_quotes(char *str);
 char	**copy_str_matrix(char **env, char *str, int a);
-int    	search_files42(char *str);
+int		search_files42(char *str);
+char	*ft_str_copy_num(char *str, int n);
 #endif

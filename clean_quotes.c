@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 18:45:37 by aespinos          #+#    #+#             */
-/*   Updated: 2023/01/10 16:53:12 by aespinos         ###   ########.fr       */
+/*   Updated: 2023/01/10 18:52:36 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,25 +22,20 @@ int	count_no_quotes(char *str)
 	a = 0;
 	b = 0;
 	i = 0;
-	while (str[a])
-		a++;
+	a = ft_strlen(str);
 	while (b < a)
 	{
 		if (str[b] == 34 || str[b] == 39)
 		{
-			com = str[b];
-			b++;
+			com = str[b++];
 			while (str[b] && str[b] != com)
 			{
 				i++;
 				b++;
 			}
 		}
-		if (str[b])
-		{
-			b++;
+		if (str[b++])
 			i++;
-		}
 	}
 	return (i);
 }
@@ -57,16 +52,11 @@ char	*copy_no_quotes(char *str)
 	{
 		if (*str == 34 || *str == 39)
 		{
-			com = *str;
-			str++;
+			com = *str++;
 			while (*str && *str != com)
-			{
-				aux[i] = *str;
-				i++;
-				str++;
-			}
+				aux[i++] = *str++;
 			if (aux[i] != com)
-				break;
+				break ;
 		}
 		if (*str != com)
 			aux[i++] = *str;
