@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 18:21:59 by aespinos          #+#    #+#             */
-/*   Updated: 2023/01/17 19:36:39 by aespinos         ###   ########.fr       */
+/*   Updated: 2023/01/19 18:14:13 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	ft_wait_for_input(char **env, int status)
 			ft_create_history(input);
 			input = check_str(input);
 			input = ft_dollar_sust_str(input, env);
-			printf("input------ = %s\n", input);
+			printf("input------%s\n", input);
 			matrix = ft_split_pipe(input, '|');
 			if (!matrix)
 				exit(0);

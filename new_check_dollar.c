@@ -6,11 +6,42 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 18:45:41 by aespinos          #+#    #+#             */
-/*   Updated: 2023/01/17 20:03:56 by aespinos         ###   ########.fr       */
+/*   Updated: 2023/01/19 18:53:39 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"minishell.h"
+
+int	ft_strlen_var(char *str)
+{
+	int	ret;
+
+	ret = 0;
+	while (str[ret] && str[ret] != ' ' && str[ret] != '"' && str[ret] != '\'')
+		ret++;
+	return (ret);
+}
+
+char	*ft_strjoin_n(char *str1, char *str2, int n)
+{
+	int		cont;
+	char	*ret;
+	char	*aux;
+
+	cont = 0;
+	aux = malloc(sizeof(char) * (n + 1));
+	while (n--)
+	{
+		aux[cont] = str2[cont];
+		cont++;
+	}
+	aux[cont] = '\0';
+	if (!str1)
+		return (aux);
+	ret = ft_strjoin(str1, aux);
+	free (aux);
+	return (ret);
+}
 
 char	*search_line_env2(char *ret, char **env, int i)
 {
@@ -66,10 +97,10 @@ char	*elim_dollar_putequal_str(char *str)
 	a = 0;
 	while (*str && *str != '$')
 		str++;
-	ret = malloc(sizeof(char) * (ft_strlen(str) + 1));
+	ret = malloc(sizeof(char) * (ft_strlen_var(str) + 1));
 	if (str && *str)
 		str++;
-	while (str && *str && *str != ' ' && *str != '"')
+	while (str && *str && *str != ' ' && *str != '"' && *str != '\'' && *str != '$')
 	{
 		ret[a] = *str;
 		a++;
@@ -82,51 +113,35 @@ char	*elim_dollar_putequal_str(char *str)
 	return (ret);
 }
 
+
 char	*ft_dollar_sust_str(char *str, char **env)
 {
-	int		cont;
 	char	*ret;
-	int		cont_aux;
-	char	*dollar;
-	char	a;
+	int		cont;
+	char	*var;
+	char	*str_aux;
 
-	a = ' ';
+	str_aux = str;
 	cont = 0;
 	ret = NULL;
-	while (str[cont])
+	while (str_aux[cont])
 	{
-		if (str[cont] == '"' && a == '"')
-			a = ' ';
-		else if (str[cont] == '"')
-			a = '"';
-		if (str[cont] == '$')
+		if (str_aux[cont] == '$')
 		{
-			if(!ret)
-				ret = ft_strdup(ft_str_copy_num(str, cont));
-			else
-				ret = ft_strjoin(ret, ft_str_copy_num(str, cont));
-			printf("staaaaaaaar = %s\n", ret);
-			cont_aux = cont;
-			while ((cont_aux--) && *str)
-				str++;
-			printf("str = %s\n", str);
-			cont_aux = 0;
-			while(str[cont_aux] != a && str[cont_aux])
-				cont_aux++;
-			dollar = ft_str_copy_num(str, cont_aux);
-			printf("DOLLAR = %s\n", dollar);
-			dollar = elim_dollar_putequal_str(dollar);
-			dollar = search_line_env(dollar, env);
-			ret = ft_strjoin(ret, dollar);
-			while (cont_aux-- && *str)
-				str++;
-			cont = 0;
-			free(dollar);
-			//printf("ret = %s\n", dollar);
+			ret = ft_strjoin_n(ret, str_aux, cont);
+			while (*str_aux && *str_aux != '$')
+				str_aux++;
+			var = elim_dollar_putequal_str(str_aux++);
+			var = search_line_env(var, env);
+			while (*str_aux && *str_aux != ' ' && *str_aux != '"' && *str_aux != '\'' && *str_aux != '$')
+				str_aux++;
+			ret = ft_strjoin(ret, var);
+			free(var);
+			cont = -1;
 		}
 		cont++;
 	}
-	if(str)
-		ret = ft_strjoin(ret, str);
+	ret = ft_strjoin_n(ret, str_aux, cont);
+	free(str);
 	return(ret);
 }
