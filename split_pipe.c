@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 18:21:57 by aespinos          #+#    #+#             */
-/*   Updated: 2023/01/17 18:19:39 by aespinos         ###   ########.fr       */
+/*   Updated: 2023/01/23 18:22:51 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,6 @@ int	ft_countwords(char const *s, char c)
 	}
 	return (cont);
 }
-
-
 
 char	**ft_splitaux(char **str, const char *s, char c, int a)
 {

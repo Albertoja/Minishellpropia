@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   new_search_files.c                                 :+:      :+:    :+:   */
+/*   search_files.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 15:57:27 by aespinos          #+#    #+#             */
-/*   Updated: 2023/01/17 18:20:48 by aespinos         ###   ########.fr       */
+/*   Updated: 2023/01/23 18:21:10 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,27 +53,29 @@ char	*ft_in_files(char *str)
 
 char	**search_files(char *str)
 {
-	char	*str_aux;
+	char	*str_aux[2];
 	char	**ret;
 
-	str_aux = NULL;
+	str_aux[0] = NULL;
 	while (*str)
 	{
 		if (*str == '<' || *str == '>')
 		{
 			while (*str == '<' || *str == '>' || *str == ' ')
 				str++;
-			if (!str_aux)
-				str_aux = ft_strdup(ft_in_files(str));
+			str_aux[1] = ft_in_files(str);
+			if (!str_aux[0])
+				str_aux[0] = ft_strdup(str_aux[1]);
 			else
-				str_aux = ft_strjoin(str_aux, ft_in_files(str));
-			str_aux = ft_strjoin(str_aux, "|");
+				str_aux[0] = ft_strjoin(str_aux[0], str_aux[1]);
+			str_aux[0] = ft_strjoin(str_aux[0], "|");
+			free(str_aux[1]);
 		}
 		if (*str == '"')
 			str = ft_noquotes_files(str, '"');
 		str++;
 	}
-	ret = ft_split_pipe(str_aux, '|');
-	free (str_aux);
+	ret = ft_split_pipe(str_aux[0], '|');
+	free (str_aux[0]);
 	return (ret);
 }

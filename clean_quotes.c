@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 18:45:37 by aespinos          #+#    #+#             */
-/*   Updated: 2023/01/10 18:52:36 by aespinos         ###   ########.fr       */
+/*   Updated: 2023/01/23 17:57:25 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ char	**ft_clean_quotes(char **files)
 	int		i;
 
 	i = -1;
+	if (!files)
+		return (NULL);
 	while (files[++i])
 	{
 		aux = copy_no_quotes(files[i]);

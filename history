@@ -1046,3 +1046,55 @@ echo $USER"$USER"
 echo $USER"$USER"
 echo $USER$USER
 exit
+echo $USER$USER
+echo $USER $USER
+echo $USER $USER
+echo $USER$USER
+echo "$USERhola"
+hola
+echo a > ile
+exit
+"echo"
+"echo" hola
+exit
+"echo" hola
+exit
+"echo" hola
+"echo" hola
+exit
+"echo" hola > "FILE"
+exit
+"echo" hola > "FILE"
+exit
+"echo" hola > "FILE"
+exit
+"echo" hola > "FILE"
+exit
+exit
+"echo" hola > "FILE"
+exit
+"echo" hola > FILE
+exit
+"echo" hola > FILE | eso > file2
+exit
+"echo" hola > FILE | eso > file2
+eexit
+exit
+"echo" hola > FILE | eso > file2
+exit
+"echo" hola > FILE | eso > file2
+exit
+"echo" hola > FILE | eso > file2
+exit
+"echo" hola > FILE | eso > file2
+exit
+"echo" hola > FILE | eso > file2
+exit
+"echo" hola > FILE | eso > file2
+"echo" hola > FILE | eso > file2
+exit
+"echo" hola > FILE | eso > file2
+"echo" hola > FILE | eso > file2
+exit
+"echo" hola > FILE | eso > file2
+exit

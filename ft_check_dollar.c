@@ -1,34 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_check_dollar.c                                  :+:      :+:    :+:   */
+/*   new_check_dollar.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/21 18:25:27 by aespinos          #+#    #+#             */
-/*   Updated: 2023/01/10 16:22:46 by aespinos         ###   ########.fr       */
+/*   Created: 2023/01/17 18:45:41 by aespinos          #+#    #+#             */
+/*   Updated: 2023/01/19 19:36:46 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include"minishell.h"
 
-// static char	**copy_str_matrix(char **env, char *str, int a)
-// {
-// 	int		i;
-// 	char	**new_matrix;
+int	ft_strlen_var(char *str)
+{
+	int	ret;
 
-// 	i = -1;
-// 	new_matrix = malloc(sizeof(char *) * (count_str(env) + 1));
-// 	while (env[++i])
-// 	{
-// 		if (i == a && a != -1)
-// 			new_matrix[i] = ft_strdup(str);
-// 		else
-// 			new_matrix[i] = ft_strdup(env[i]);
-// 	}
-// 	new_matrix[i] = NULL;
-// 	return (new_matrix);
-// }
+	ret = 0;
+	while (str[ret] && str[ret] != ' ' && str[ret] != '"' && str[ret] != '\'')
+		ret++;
+	return (ret);
+}
 
 char	*search_line_env2(char *ret, char **env, int i)
 {
@@ -73,61 +65,59 @@ char	*search_line_env(char *str, char **env)
 		i++;
 	}
 	free(str);
-	return (NULL);
+	return (ft_strdup(" "));
 }
 
-char	*elim_dollar_putequal(char *str)
+char	*elim_dollar_putequal_str(char *str, char **env)
 {
 	char	*ret;
 	int		a;
 
 	a = 0;
-	ret = malloc(sizeof(char) * (ft_strlen(str)) + 1);
-	str++;
-	while (*str)
+	while (*str && *str != '$')
+		str++;
+	ret = malloc(sizeof(char) * (ft_strlen_var(str) + 1));
+	if (str && *str)
+		str++;
+	while (*str && *str && *str != ' '
+		&& *str != '"' && *str != '\'' && *str != '$')
 	{
 		ret[a] = *str;
 		a++;
 		str++;
 	}
 	ret[a] = '=';
-	a++;
-	ret[a] = '\0';
-	return (ret);
-}
-
-char	**ft_dollar_sust(char **env, char **mat, int pos)
-{
-	char	**ret;
-	char	*straux;
-	char	*sust;
-
-	straux = elim_dollar_putequal(mat[pos]);
-	sust = search_line_env(straux, env);
-	ret = copy_str_matrix(mat, sust, pos);
-	free(sust);
-	ft_free_matrix(mat);
-	return (ret);
-}
-
-char	**ft_dollar(char **mat, char **env)
-{
-	int		i;
-	int		a;
-
-	a = 0;
-	i = 0;
-	while (mat[a])
+	if (ret[a] && ret)
 		a++;
-	while (i < a)
+	ret[a] = '\0';
+	return (search_line_env(ret, env));
+}
+
+char	*ft_dollar_sust_str(char *str, char **env)
+{
+	t_strings	st;
+	int			cont;
+
+	st.str_aux = str;
+	st.ret = NULL;
+	cont = 0;
+	while (st.str_aux[cont++])
 	{
-		if (mat[i][0] == '$')
-			mat = ft_dollar_sust(env, mat, i);
-		else if (mat[i][0] == '"')
+		if (st.str_aux[cont] == '$')
 		{
-			mat[i] = ft_dollar_sust_str(mat[i], env);
+			st.ret = ft_strjoin_n(st.ret, st.str_aux, cont);
+			while (*st.str_aux && *st.str_aux != '$')
+				st.str_aux++;
+			st.var = elim_dollar_putequal_str(st.str_aux++, env);
+			while (*st.str_aux && *st.str_aux != 32 && *st.str_aux != 34
+				&& *st.str_aux != 39 && *st.str_aux != 36)
+				st.str_aux++;
+			st.ret = ft_strjoin(st.ret, st.var);
+			free(st.var);
+			cont = -1;
 		}
-		i++;
 	}
-	return (mat);
+	st.ret = ft_strjoin_n(st.ret, st.str_aux, cont);
+	free (str);
+	return (st.ret);
 }

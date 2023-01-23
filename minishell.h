@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 18:27:12 by aespinos          #+#    #+#             */
-/*   Updated: 2023/01/19 19:35:55 by aespinos         ###   ########.fr       */
+/*   Updated: 2023/01/23 18:14:15 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,10 @@
 
 typedef struct s_strings
 {
-	char * ret;
-	char * var;
-	char * str_aux;
+	char	*ret;
+	char	*var;
+	char	*str_aux;
 }	t_strings;
-
 
 void	ft_wait_for_input(char **env, int status);
 char	*check_str(char *str);
