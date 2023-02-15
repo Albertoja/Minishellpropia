@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 18:27:12 by aespinos          #+#    #+#             */
-/*   Updated: 2023/02/13 18:47:03 by aespinos         ###   ########.fr       */
+/*   Updated: 2023/02/15 16:57:32 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,4 +108,5 @@ void	signals_handlers_default(void);
 void	signals_handlers(void);
 void	no_ctrlprint(void);
 void	handler_ctrlc(int sig);
+char	*ft_endpipe(char *oldinput);
 #endif

@@ -6,13 +6,13 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 18:21:44 by aespinos          #+#    #+#             */
-/*   Updated: 2023/02/13 16:10:29 by aespinos         ###   ########.fr       */
+/*   Updated: 2023/02/15 16:22:46 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_check_pipe(char *str)
+char	*ft_check_pipe(char *str)
 {
 	int	aux;
 
@@ -34,10 +34,11 @@ void	ft_check_pipe(char *str)
 					break ;
 			}
 			if (!str[aux])
-				ft_error("pipe suelto", NULL);
+				return (ft_endpipe(str));
 		}
 		aux++;
 	}
+	return (str);
 }
 
 char	*check_str(char *str)
@@ -67,6 +68,6 @@ char	*check_str(char *str)
 		}
 		aux++;
 	}
-	ft_check_pipe(str);
+	str = ft_check_pipe(str);
 	return (str);
 }

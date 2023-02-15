@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 18:21:59 by aespinos          #+#    #+#             */
-/*   Updated: 2023/02/13 19:17:31 by aespinos         ###   ########.fr       */
+/*   Updated: 2023/02/15 17:11:45 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	ft_wait_for_input(char **env, int status, char *homepath)
 	char	*input;
 
 	status = 0;
+	no_ctrlprint();
+	signals_handlers();
 	while (1)
 	{
 		g_interactive = 1;
@@ -39,9 +41,10 @@ void	ft_wait_for_input(char **env, int status, char *homepath)
 				input = ft_strdup("");
 			g_interactive = 1;
 		}
-		printf("g = %i\n", g_interactive);
+		//printf("g = %i\n", status);
 		ft_create_history(input,homepath);
 		input = check_str(input);
+		printf("input = %s\n", input);
 		if (!input)
 			status = 1;
 		if (input && input[0])
