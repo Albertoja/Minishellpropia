@@ -6,25 +6,13 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 19:00:18 by aespinos          #+#    #+#             */
-/*   Updated: 2022/12/01 17:58:37 by aespinos         ###   ########.fr       */
+/*   Updated: 2023/02/16 19:19:17 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <limits.h>
 #include <stdio.h>
-
-size_t	ft_linelen(const char *line)
-{
-	size_t	i;
-
-	i = 0;
-	while (line[i] != '\0' && line[i] != '\n')
-		i++;
-	if (line[i] == '\n')
-		i++;
-	return (i);
-}
 
 char	*ft_strjoingnl(const char *s1, char const *s2)
 {

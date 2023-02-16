@@ -6,44 +6,74 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 11:13:02 by magonzal          #+#    #+#             */
-/*   Updated: 2023/02/13 18:16:10 by aespinos         ###   ########.fr       */
+/*   Updated: 2023/02/16 17:33:44 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	pipex(t_all *head, char **envp, int status)
-{
-	t_all	*first = head;
-	t_all	*second = head->next;
-	int		pip[2];
-	pid_t	slave1;
-	pid_t	slave2;
+void	selectredirectionpipex(t_all *aux);
 
-	if(first->next->cmds)
-		first->next->cmds = NULL;
-	pipe(pip);
-	slave1 = fork();					//doubles forks when going again on exe
-	if(slave1 < 0)
-		error("Errror: Fork of slave 1");
-	else if(slave1 == 0)
+int		pipex(t_all *head, char **envp)
+{
+	t_all	*aux;
+	pid_t	pid;
+	int		pip[2];
+	int		status;
+	int		fd;
+
+	fd = 0;
+	aux = head;
+	while (aux && aux->next != NULL)
 	{
-		dup2(pip[1], 1);
-		close(pip[0]);
-		exe(first, envp, status);
+		pipe(pip);
+		if ((pid = fork()) == -1)
+			ft_error("ERROR: error on Fork","\n");
+		else if (pid == 0)
+		{
+			dup2(fd, 0);
+			if (aux->next)
+				dup2(pip[1], 1);
+			selectredirectionpipex(aux);
+			if (execve(get_path(aux->cmds[0], envp), &aux->cmds[0], envp) == -1)
+				ft_error("EPX : command not found", aux->cmds[0]);
+			exit(0);
+			return (127);
+		}
+		else
+		{
+			wait(&status);
+			close(pip[1]);
+			fd = pip[0];
+			aux = aux->next;
+		}
 	}
-	slave2 = fork();					//doubles forks when going again on exe
-	if(slave2 < 0)
-		error("Errror: Fork of slave 2");
-	else if(slave2 == 0)
-	{
-		dup2(pip[0], 0);
-		close(pip[1]);
-		exe(second, envp, status);
-	}
-	close(pip[0]);
-	close(pip[1]);
-	waitpid(slave1, NULL, 0);
-	waitpid(slave2, NULL, 0);
 	return(status);
+}
+
+void	selectredirectionpipex(t_all *aux)
+{
+	int fd;
+	
+	if (aux->dir)
+	{
+		if (aux->dir[0] == '2')
+		{
+			fd = open(aux->files[0], O_RDWR | O_CREAT | O_TRUNC, 0644);
+			dup2(fd, 1);
+			close(fd);
+		}
+		else if(aux->dir[0] == '1')
+		{
+			fd = open(aux->files[0], O_RDONLY, 0644);
+			dup2(fd, 0);
+			close(fd);
+		}
+		else if(aux->dir[0] == '4')
+		{
+			fd = open(aux->files[0], O_RDWR | O_CREAT | O_APPEND, 0644);
+			dup2(fd, 1);
+			close(fd);
+		}
+	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   search_files.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mario <mario@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 15:57:27 by aespinos          #+#    #+#             */
-/*   Updated: 2023/01/23 18:21:10 by aespinos         ###   ########.fr       */
+/*   Updated: 2023/02/14 17:10:23 by mario            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,7 @@ char	*ft_quotes_files(char *str, char a)
 char	*ft_in_files(char *str)
 {
 	char	*ret;
-	int		cont;
 
-	cont = 0;
 	while (*str == '<' || *str == '>' || *str == ' ')
 		str++;
 	if (*str == '"')

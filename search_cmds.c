@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   search_cmds.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mario <mario@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 17:42:13 by aespinos          #+#    #+#             */
-/*   Updated: 2023/01/10 16:04:43 by aespinos         ###   ########.fr       */
+/*   Updated: 2023/02/14 17:10:09 by mario            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,14 +85,12 @@ char	**search_cmds(char *str)
 {
 	char	*straux;
 	int		len;
-	int		lenaux;
 	char	**ret;
 
 	if (!str || !*str)
 		return (0);
 	ret = NULL;
 	len = 0;
-	lenaux = 0;
 	len = ft_cmds_len(str);
 	straux = search_cmds2(str, len);
 	ret = ft_split_pipe(straux, ' ');

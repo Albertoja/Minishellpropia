@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mario <mario@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:42:44 by magonzal          #+#    #+#             */
-/*   Updated: 2023/02/08 17:31:00 by aespinos         ###   ########.fr       */
+/*   Updated: 2023/02/14 17:09:31 by mario            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	outputappendredirection(t_all *first, char **envp)
 	}
 }
 
-void	heredoc(t_all *first, char **envp)
+/*void	heredoc(t_all *first, char **envp)
 {
 	int		pip[2];
 	int		len;
@@ -114,12 +114,10 @@ void	heredoc(t_all *first, char **envp)
 			write(fd,"\n", 1);
 			free(input);
 		}
-		path = get_path(first->cmds[0], envp);
-
 	}
 	close(pip[1]);
 	dup2(pip[0], STDIN_FILENO);
 	close(pip[0]);
 	waitpid(pid, NULL, 0);
 	
-}
+}*/

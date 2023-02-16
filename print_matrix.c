@@ -1,30 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   print_matrix.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/18 18:21:46 by aespinos          #+#    #+#             */
-/*   Updated: 2023/02/16 19:17:46 by aespinos         ###   ########.fr       */
+/*   Created: 2022/10/18 18:21:53 by aespinos          #+#    #+#             */
+/*   Updated: 2022/11/03 18:10:30 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_error(char *str, char *straux)
+int	ft_print_matrix(char **matrix)
 {
-	printf("minishell: %s: %s\n", straux, str);
-}
-
-size_t	ft_linelen(const char *line)
-{
-	size_t	i;
+	int	i;
 
 	i = 0;
-	while (line[i] != '\0' && line[i] != '\n')
-		i++;
-	if (line[i] == '\n')
-		i++;
-	return (i);
+	if (!matrix)
+		return (1);
+	while (matrix[i])
+	{
+		ft_putstr_fd(matrix[i++], 1);
+		ft_putchar_fd('\n', 1);
+	}
+	return (0);
 }

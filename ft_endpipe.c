@@ -6,12 +6,17 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 16:21:46 by aespinos          #+#    #+#             */
-/*   Updated: 2023/02/15 16:34:09 by aespinos         ###   ########.fr       */
+/*   Updated: 2023/02/16 18:37:25 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"minishell.h"
 
+char	*error_endpipe(void)
+{
+	printf("minishell: syntax error: unexpected end of file\n");
+	return (ft_strdup(""));
+}
 
 char	*ft_endpipe(char *oldinput)
 {
@@ -23,24 +28,19 @@ char	*ft_endpipe(char *oldinput)
 	while (1)
 	{
 		input = readline(YELLOW">"RESET);
-		if(!input)
+		if (!input)
 		{
 			if (g_interactive == 2)
-			{
-				printf("> minishell: unexpected EOF while looking for matching `\"'\n");
-				printf("minishell: syntax error: unexpected end of file\n");
-				return (ft_strdup(""));
-			}
+				return (error_endpipe());
 			if (g_interactive == 3)
 				return (ft_strdup(""));
 		}
 		if (input && *input)
 		{
 			input = ft_strdup(input);
-			write(1, "entra\n", 6);
 			oldinput = ft_strjoin(oldinput, input);
 			free(input);
-			return(oldinput);
+			return (oldinput);
 		}
 	}
 	free(input);

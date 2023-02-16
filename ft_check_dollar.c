@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 18:45:41 by aespinos          #+#    #+#             */
-/*   Updated: 2023/02/13 18:29:52 by aespinos         ###   ########.fr       */
+/*   Updated: 2023/02/16 18:31:35 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,8 @@ char	*elim_dollar_putequal_str(char *str, char **env, int status)
 	if (ret[a] && ret)
 		a++;
 	ret[a] = '\0';
-	if(ft_strncmp(ret, "?=", ft_strlen(ret)) == 0)
-		return(ft_itoa(status));
+	if (ft_strncmp(ret, "?=", ft_strlen(ret)) == 0)
+		return (ft_itoa(status));
 	return (search_line_env(ret, env));
 }
 
