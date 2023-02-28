@@ -3,14 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   exeutils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mario <mario@student.42.fr>                +#+  +:+       +#+        */
+/*   By: magonzal <magonzal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 19:44:07 by magonzal          #+#    #+#             */
-/*   Updated: 2023/02/15 18:14:44 by mario            ###   ########.fr       */
+/*   Updated: 2023/02/28 16:30:13 by magonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	free_paths(char **path, int j)
+{
+	int	i;
+
+	i = -1;
+	if (!path)
+		return ;
+	while (path[++i] && j <= 0)
+	{
+		free(path[i]);
+		j--;
+	}
+	free(path);
+}
 
 char	*get_path(char *cmd, char *envp[])
 {
@@ -29,18 +44,17 @@ char	*get_path(char *cmd, char *envp[])
 	cmd = ft_strjoinm("/", cmd);
 	while (paths[j])
 	{
-		goodpath = ft_strjoin(paths[j], cmd);
+		goodpath = ft_strjoinm(paths[j], cmd);
 		if (access(goodpath, 0) == 0)
 		{
+			free(cmd);
+			ft_free_matrix(paths);
 			return (goodpath);
 		}
+		free(goodpath);
 		j++;
 	}
-	return(NULL);
-}
-
-void	error(char *str)
-{
-	printf("%s", str);
-	exit (1);
+	free(cmd);
+	ft_free_matrix(paths);
+	return (NULL);
 }

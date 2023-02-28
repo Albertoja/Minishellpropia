@@ -1,18 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   ft_lstclear_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/18 18:21:46 by aespinos          #+#    #+#             */
-/*   Updated: 2023/02/28 19:29:13 by aespinos         ###   ########.fr       */
+/*   Created: 2022/02/02 17:21:40 by aespinos          #+#    #+#             */
+/*   Updated: 2022/11/28 19:45:03 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_error(char *str, char *straux)
-{
-	printf("minishell: %s: %s\n", straux, str);
-}
+// void	ft_lstclear(t_all **lst)
+// {
+// 	t_all	*temp;
+
+// 	if (!*lst)
+// 		return ;
+// 	while (*lst)
+// 	{
+// 		temp = (*lst)->next;
+// 		free(*lst);
+// 		*lst = temp;
+// 	}
+// 	*lst = NULL;
+// }

@@ -6,7 +6,7 @@
 /*   By: magonzal <magonzal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 20:56:44 by aespinos          #+#    #+#             */
-/*   Updated: 2023/02/01 12:24:53 by magonzal         ###   ########.fr       */
+/*   Updated: 2023/02/25 17:16:32 by magonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ char	**ft_split(char const *s, char c)
 	str = (char **)malloc(sizeof(char *) * (ft_countwords(s, c) + 1));
 	if (!str)
 		return (NULL);
-	while (s[a] == c) //***holi***caracoli*que*tal**
+	while (s[a] == c)
 		a++;
 	return (ft_splitaux(str, s, c, a));
 }

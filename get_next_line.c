@@ -3,45 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: magonzal <magonzal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 19:00:18 by aespinos          #+#    #+#             */
-/*   Updated: 2023/02/16 19:19:17 by aespinos         ###   ########.fr       */
+/*   Updated: 2023/02/25 17:49:23 by magonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <limits.h>
 #include <stdio.h>
-
-char	*ft_strjoingnl(const char *s1, char const *s2)
-{
-	size_t	i;
-	size_t	k;
-	size_t	len1;
-	size_t	len2;
-	char	*str;
-
-	if (!s1 || !s2)
-		return (NULL);
-	i = -1;
-	k = -1;
-	str = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
-	if (!str)
-		return (NULL);
-	len1 = ft_strlen(s1);
-	len2 = ft_strlen(s2);
-	while (++i < len1)
-		str[i] = s1[i];
-	while (++k < len2)
-	{
-		str[i] = s2[k];
-		i++;
-	}
-	str[i] = '\0';
-	free((void *)s1);
-	return (str);
-}
 
 static char	*ft_extraline(char *text)
 {

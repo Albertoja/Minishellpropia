@@ -5,101 +5,105 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/07 17:52:36 by aespinos          #+#    #+#             */
-/*   Updated: 2022/12/07 18:42:07 by aespinos         ###   ########.fr       */
+/*   Created: 2023/02/27 17:29:16 by magonzal          #+#    #+#             */
+/*   Updated: 2023/02/28 17:30:12 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"minishell.h"
+#include "minishell.h"
 
-char	*search_first_cmd(char *input)
+void	heredoc(t_all *f, char **envp, int *status)
 {
-	int	a;
+	int		pip[2];
+	int		fd_len[2];
+	pid_t	pid;
+	char	*deli;
 
-	char	*cmd;
-
-	a = 0;
-	while(input[a] != ' ')
-		a++;
-	cmd = malloc(sizeof(char) * (a + 1));
-	a = 0;
-	while(input[a] != ' ')
+	deli = f->files[0];
+	fd_len[1] = ft_strlen(deli);
+	if (pipe(pip) == -1)
+		exit(1);
+	pid = fork();
+	if (pid == 0)
 	{
-		cmd[a] = input[a];
-		a++;
+		fd_len[0] = open("/tmp/file1", O_WRONLY | O_CREAT | O_TRUNC, S_IRWXU);
+		if (fd_len[0] == -1)
+			printf("Error: Can Not Read the Input File");
+		heredocaux(fd_len, f, envp, pip);
 	}
-	return (cmd);
+	else
+		while (waitpid(-1, NULL, WUNTRACED) == -1)
+			close(fd_len[0]);
+	waitpid(pid, status, 0);
 }
 
-char	*sust_a(char *input, char a)
-{
-	char	*aux;
-	int		i;
-	int		j;
-
-	aux = malloc(sizeof(char) * (ft_strlen(input) + 1));
-	i = 0;
-	j = 0;
-	while(input[i])
-	{
-		if(input[i] == a)
-			i++;
-		else
-		{
-			aux[j] = input[i];
-			i++;
-			j++;
-		}
-	}
-	aux[j] = a;
-	j++;
-	aux[j] = '\0';
-	return(aux);
-}
-
-char	*search_a(char	*input, char a)
-{
-	int	i;
-
-	i = 0;
-	while(input[i])
-	{
-		if(input[i] == a)
-		{
-			input = sust_a(input, a);
-			return(input);
-		}
-		i++;
-	}
-	return(input);
-}
-
-char	*ft_heredoc(char *oldinput, char a)
+void	heredocaux(int *fd_len, t_all *f, char **envp, int *pip)
 {
 	char	*input;
-	int		i;
-	char	*firstcmd;
+	int		a;
 
-	firstcmd = search_first_cmd(oldinput);
-	i = 0;
-	while (1)
+	a = 0;
+	while (a == 0)
 	{
-		input = readline(YELLOW">"RESET);
-		if (input && *input)
+		g_interactive = 2;
+		input = readline(">");
+		if (!ft_strncmp(input, f->files[0], fd_len[1]))
 		{
-			input = search_a(input, a);
-			oldinput = ft_strjoin(oldinput, " | ");
-			oldinput = ft_strjoin(oldinput, firstcmd);
-			oldinput = ft_strjoin(oldinput, " ");
-			oldinput = ft_strjoin(oldinput, input);
-			printf("->%s\n", oldinput);
-		while (input[i])
-			i++;
-		if (input[i - 1] == a)
-			return (copy_no_quotes(oldinput));
+			close(pip[0]);
+			close(pip[1]);
+			a = 1;
+			fd_len[0] = open("/tmp/file1", O_RDONLY, 0644);
+			dup2(fd_len[0], STDIN_FILENO);
+			if (execve(get_path(f->cmds[0], envp), &f->cmds[0], envp) == -1)
+				ft_error("command not found", f->cmds[0]);
+		}
 		else
-			i = 0;
+		{
+			write(fd_len[0], input, ft_strlen(input));
+			write(fd_len[0], "\n", 1);
+			free(input);
 		}
 	}
-	return (copy_no_quotes(oldinput));
+}
+
+void	heredocauxpip(int *fd_len, t_all *f, int *in_out_all_act, int *pip)
+{
+	char	*input;
+	int		a;
+
+	a = 0;
+	while (a == 0)
+	{
+		dup2(in_out_all_act[1], STDOUT_FILENO);
+		dup2(pip[1],STDOUT_FILENO);
+		close(pip[1]);
+		input = readline(">");
+		if (!ft_strncmp(input, f->files[0], fd_len[1]))
+		{
+			a = 1;
+			fd_len[0] = open("/tmp/file1", O_RDONLY, 0644);
+			dup2(fd_len[0], STDIN_FILENO);
+		}
+		else
+		{
+			//printf(">%s\n",input);
+			write(fd_len[0], input, ft_strlen(input));
+			write(fd_len[0], "\n", 1);
+			free(input);
+		}
+	}
+}
+
+void	heredocpip(t_all *f, int *in_out_all_act, int *pip)
+{
+	int		fd_len[2];
+	char	*deli;
+
+	deli = f->files[0];
+	fd_len[1] = ft_strlen(deli);
+	fd_len[0] = open("/tmp/file1", O_WRONLY | O_CREAT | O_TRUNC, S_IRWXU);
+	if (fd_len[0] == -1)
+		printf("Error: Can Not Read the Input File");
+	heredocauxpip(fd_len, f, in_out_all_act,pip);
+	
 }

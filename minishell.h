@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*																			*/
-/*														:::	  ::::::::   */
-/*   minishell.h										:+:	  :+:	:+:   */
-/*													+:+ +:+		 +:+	 */
-/*   By: aespinos <aespinos@student.42.fr>		  +#+  +:+	   +#+		*/
-/*												+#+#+#+#+#+   +#+		   */
-/*   Created: 2022/10/18 18:27:12 by aespinos		  #+#	#+#			 */
-/*   Updated: 2023/02/16 19:18:41 by aespinos		 ###   ########.fr	   */
-/*																			*/
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/18 18:27:12 by aespinos          #+#    #+#             */
+/*   Updated: 2023/02/28 19:23:56 by aespinos         ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
@@ -55,16 +55,20 @@ char	**search_cmds(char *str);
 char	**search_files(char *str);
 char	*check_str(char *str);
 char	*copy_no_quotes(char *str);
+int		ft_echo(char **str);
 char	*elim_dollar_putequal(char *str);
+char	**exe(t_all *first, char **envp, int *status);
 char	*ft_dollar(char *input, char **env);
-char	*ft_dollar_sust_str(char *str, char **env, int status);
+char	*ft_dollar_sust_str(char *str, char **env, int *status);
 char	*ft_endquotes(char *input, char a);
+char	**ft_export(char **cmds, char **env);
 char	*ft_homepath(char **env);
 char	*ft_str_copy_num(char *str, int n);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strdup(const char *s1);
 char	*ft_strjoin(const char *s1, char const *s2);
 char	*ft_strjoin_n(char *str1, char *str2, int n);
+char	*ft_strjoingnl(const char *s1, char const *s2);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*get_next_line(int fd);
 char	*get_path(char *cmd, char *envp[]);
@@ -72,42 +76,50 @@ char	*get_pwd(void);
 char	*search_line_env(char *str, char **env);
 char	*search_redirection(char *straux);
 int		count_str(char **matrix);
-int		exe(t_all *first, char **envp, int status);
-int		ft_builtins(t_all *head, char **env, int status);
+char	**ft_builtins(t_all *head, char **env, int *status);
 int		ft_comp_var(char *cmds, char **env);
 int		ft_comp_var(char *cmds, char **env);
 int		ft_print_matrix(char **matrix);
+void	heredoc(t_all *first, char **envp, int *status);
 int		is_builtin(char *command);
-int		pipex(t_all *first, char **envp);
+int		outputappendredirection(t_all *first, char **envp);
+void	outputredirection(t_all *first, char **envp, int *status);
 int		search_files42(char *str);
+size_t	ft_linelen(const char *line);
 size_t	ft_strlen(const char *s);
 t_all	*ft_create_lst(char **matrix);
-void	ft_unset(char **cmds, char **env);
+char	**ft_unset(char **cmds, char **env);
 void	*ft_calloc(size_t count, size_t size);
 void	error(char *str);
-void	execmd(t_all *first, char **envp);
-void	ft_create_history(char *input, char *homepath);
-void	ft_echo(char **str);
+void	execmd(t_all *first, char **envp, int *status);
+void	ft_create_history(char *input);
 void	ft_error(char *str, char *straux);
-void	ft_export(char **cmds, char **env);
 void	ft_ls(char **cmds);
 void	ft_putchar_fd(char c, int fd);
 void	ft_putstr_fd(char *s, int fd);
 void	ft_read_history(void);
 void	ft_slave1(t_all *head, int pip[2], char *envp[]);
 void	ft_slave2(t_all *head, int pip[2], char *envp[]);
-void	ft_wait_for_input(char **env, int status, char *homepath);
+void	ft_wait_for_input(char **env);
 void	handler_ctrlc(int sig);
+void	heredocaux(int *fd_len, t_all *f, char **envp, int *pip);
 void	hello_norminette(char **str, char const *s, int **i, int *a);
-void	heredoc(t_all *first, char **envp);
-void	inputredirection(t_all *first, char **envp);
+void	inputredirection(t_all *f, char **envp, int *status);
+void	outputredirection(t_all *f, char **envp, int *status);
+void	outputredirectionaux(t_all *f, char **envp, char *path, int *i);
+void	pipex(t_all *aux, char **envp, int *status);
 void	no_ctrlprint(void);
-void	outputappendredirection(t_all *first, char **envp);
-void	outputredirection(t_all *first, char **envp);
-void	redirections(t_all *first, char **envp);
+void	redirections(t_all *first, char **envp, int *status);
 void	rl_replace_line(char *s, int a);
 void	signals_handlers(void);
 void	signals_handlers_default(void);
 char	*ft_endpipe(char *oldinput);
-size_t	ft_linelen(const char *line);
+size_t	ft_lenchar(char const *s, int c);
+char	*get_oldpwd(char **env);
+char	*ft_putquotes_export(char *str);
+void	heredocpip(t_all *f, int *in_out_all_act, int *pip);
+int		ft_dollarutils01(char *str_aux, int co);
+t_strings	ft_dollarutils02(t_strings st, int *status, char **env, int co);
+char	*elim_dollar_putequal_str(char *str, char **env, int status);
+t_strings	ft_dollarutils03(t_strings st, int co);
 #endif

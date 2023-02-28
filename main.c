@@ -6,15 +6,15 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 18:21:50 by aespinos          #+#    #+#             */
-/*   Updated: 2023/02/16 19:20:02 by aespinos         ###   ########.fr       */
+/*   Updated: 2023/02/28 18:52:33 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+ #include "minishell.h"
 
-// void    leaks(void)
+// void	leaks(void)
 // {
-//     system("leaks minishell");
+// 	system("leaks minishell");
 // }
 
 int	g_interactive = 0;
@@ -49,16 +49,14 @@ char	**copy_matrix(char **matrix)
 int	main(int argc, char *argv[], char *envp[])
 {
 	char	**env;
-	int		status;
 
 	//atexit(leaks);
 	if (argc != 1 || argv[1] || !envp)
 		return (0);
-	status = 0;
 	env = copy_matrix(envp);
 	ft_read_history();
 	no_ctrlprint();
 	signals_handlers();
-	ft_wait_for_input(env, status,ft_homepath(env));
-	ft_free_matrix (env);
+	ft_wait_for_input(env);
+	ft_free_matrix(env);
 }

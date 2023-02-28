@@ -6,7 +6,7 @@
 /*   By: magonzal <magonzal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 20:06:33 by aespinos          #+#    #+#             */
-/*   Updated: 2023/02/02 13:34:35 by magonzal         ###   ########.fr       */
+/*   Updated: 2023/02/25 17:18:32 by magonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,13 +73,12 @@ void	ft_lstadd_front(t_list **lst, t_list *new);
 void	ft_lstclear(t_all **lst);
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 void	ft_striteri(char *s, void (*f)(unsigned int, char*));
-int		ft_lstsize(t_list *lst);
+int		ft_lstsize(t_all *lst);
 t_all	*ft_lstlast(t_all *lst);
 void	ft_lstadd_back(t_all **lst, t_all *new);
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 void	ft_lstclear_minishell(t_all **lst);
 char	ft_free_matrix(char **matrix);
-
 
 #endif
