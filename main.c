@@ -6,11 +6,11 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 18:21:50 by aespinos          #+#    #+#             */
-/*   Updated: 2023/02/28 18:52:33 by aespinos         ###   ########.fr       */
+/*   Updated: 2023/03/01 20:07:11 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
- #include "minishell.h"
+#include "minishell.h"
 
 // void	leaks(void)
 // {
@@ -49,14 +49,17 @@ char	**copy_matrix(char **matrix)
 int	main(int argc, char *argv[], char *envp[])
 {
 	char	**env;
+	char	*home;
 
+	home = NULL;
 	//atexit(leaks);
 	if (argc != 1 || argv[1] || !envp)
 		return (0);
 	env = copy_matrix(envp);
+	home = ft_search_home(env, home);
 	ft_read_history();
 	no_ctrlprint();
 	signals_handlers();
-	ft_wait_for_input(env);
+	ft_wait_for_input(env, home);
 	ft_free_matrix(env);
 }
