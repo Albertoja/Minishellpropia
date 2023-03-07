@@ -3,22 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   create_history.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: magonzal <magonzal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 17:47:51 by aespinos          #+#    #+#             */
-/*   Updated: 2023/02/28 09:05:00 by magonzal         ###   ########.fr       */
+/*   Updated: 2023/03/07 20:43:52 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_read_history(void)
+void	ft_read_history()
 {
 	int		fd;
 	char	*line;
 	char	*aux;
 
-	fd = open("history", O_CREAT | O_RDWR, 0644);
+	fd = open(".history", O_CREAT | O_RDWR, 0644);
 	if (fd == -1)
 		return ;
 	line = get_next_line(fd);
@@ -40,7 +40,7 @@ void	ft_create_history(char *input)
 {
 	int	fd;
 
-	fd = open("history", O_CREAT | O_RDWR | O_APPEND, 0644);
+	fd = open(".history", O_CREAT | O_RDWR | O_APPEND, 0644);
 	if (fd == -1)
 		return ;
 	add_history(input);
