@@ -6,33 +6,19 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 17:28:29 by aespinos          #+#    #+#             */
-/*   Updated: 2023/03/08 21:03:37 by aespinos         ###   ########.fr       */
+/*   Updated: 2023/03/16 16:46:43 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*back_one_dir(char *path)
-{
-	int		len;
-	char	*new_dir;
-
-	if (ft_strncmp(path, "/", 5) == 0)
-		return (path);
-	len = ft_strlen(path);
-	while (path[len] != '/')
-		len--;
-	new_dir = ft_substr(path, 0, len);
-	return (new_dir);
-}
+#include "minishell.h"
 
 char	*check_dir(char **args, char *path, int *status)
 {
 	char	*new_dir;
 	char	*aux;
 
-	// if(ft_strncmp(args[1], "..", 10) == 0)
-	// 	return (path);
 	if (args[1] && args[1][0] == '/')
 		return (args[1]);
 	path = ft_strjoinm(path, "/");
@@ -57,7 +43,6 @@ void	replace_pwd_oldpwd(char *new_dir, char *path, char **env)
 	char	*aux;
 
 	i = -1;
-	
 	while (env[++i])
 	{
 		if (ft_strncmp(env[i], "PWD=", 4) == 0)
@@ -82,6 +67,20 @@ void	replace_pwd_oldpwd(char *new_dir, char *path, char **env)
 			free(aux);
 		}
 	}
+}
+
+char	*back_one_dir(char *path)
+{
+	int		len;
+	char	*new_dir;
+
+	if (ft_strncmp(path, "/", 5) == 0)
+		return (path);
+	len = ft_strlen(path);
+	while (path[len] != '/')
+		len--;
+	new_dir = ft_substr(path, 0, len);
+	return (new_dir);
 }
 
 char	*get_home(char **env, int *status, char *home)
@@ -118,8 +117,6 @@ char	**ft_cd(char **args, char **env, int *status, char *home)
 	if (!env)
 		return (NULL);
 	path = get_pwd();
-	if (!path)
-		write(1, "xdd", 3);
 	if (!args[1] || ft_strncmp(args[1], "~", 5) == 0)
 		new_dir = get_home(env, status, home);
 	else if (ft_strncmp(args[1], "-", 5) == 0)

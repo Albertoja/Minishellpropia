@@ -1333,3 +1333,120 @@ echo "ho
 exit
  
 exit
+echo "ho
+mkdir a
+cd a
+mkdir a
+cd a
+mkdir a
+cd a
+mkdir a
+cd a
+mkdir a
+cd a
+mkdir a
+cd a
+mkdir a
+cd a
+mkdir a
+cd a
+pwd
+exiit
+exit
+pwd
+exit
+pwd
+pwd
+exit
+exit
+pwd
+pwd
+exit
+mkdir a
+cd a
+mkdir a
+cd a
+mkdir a
+cd a
+mkdir a
+cd a
+mkdir a
+cd a
+mkdir a
+cd a
+mkdir a
+cd a
+mkdir a
+cd a
+mkdir a
+cd a
+mkdir a
+cd a
+mkdir a
+cd a
+mkdir a
+cd a
+cd a
+mkdir b
+cd b
+rm -rf ../../a 
+pwd
+cd ..
+pwd
+cd ..
+pwd
+cd ..
+pwd
+mkdir b
+mkdir a
+cd a
+cd b
+pwd
+rm -rf ../../a 
+pwd
+cd ..
+pwd
+cd ..
+pwd
+pwd
+pwd
+pwd
+mkdir a
+cd a
+cd a
+cd a
+pwd
+
+cd a
+pwd
+cd a
+pwd
+pwd
+cd a
+pwd
+pwd
+cd a
+pwd
+pwd
+cd a
+pwd
+pwd
+cd a
+pwd
+cd a
+pwd
+cd ..
+pwd
+cd ..
+cd a
+pwd
+cd ..
+cd a
+pwd
+env
+cd ..
+cd ..
+cd ..
+cd ..
+mkdir a
+cd a

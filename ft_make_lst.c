@@ -6,24 +6,11 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:53:55 by aespinos          #+#    #+#             */
-/*   Updated: 2023/03/08 19:20:41 by aespinos         ###   ########.fr       */
+/*   Updated: 2023/02/28 18:51:38 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	ft_redcomp(char *red)
-{
-	int	cont;
-
-	cont = -1;
-	while (red[++cont])
-	{
-		if (red[cont] == '0')
-			return (0);
-	}
-	return (1);
-}
 
 t_all	*ft_basic_parse(char *str, t_all *head)
 {
@@ -41,7 +28,15 @@ t_all	*ft_parse(char **matrix, int *cont)
 
 	head = ft_calloc(sizeof(t_all), 1);
 	if (matrix[++(*cont)])
+	{
 		head = ft_basic_parse(matrix[*cont], head);
+		// printf("redireccion:%s\n", head->dir);
+		// printf("Comandos:\n");
+		// ft_print_matrix(head->cmds);
+		// printf("Archivos:\n");
+		// ft_print_matrix(head->files);
+		// printf("-------------------\n");
+	}
 	return (head);
 }
 

@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 17:53:17 by aespinos          #+#    #+#             */
-/*   Updated: 2023/03/06 14:35:57 by aespinos         ###   ########.fr       */
+/*   Updated: 2023/03/16 16:33:22 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,24 @@ char	*ft_search_home(char **env, char *home)
 	}
 	else
 		return (env[col]);
+}
+
+char	*ft_search_pwd(char **env)
+{
+	int		col;
+	char	*ret;
+
+	ret = NULL;
+	col = ft_comp_var("PWD", env);
+	if (col < 0)
+		return (NULL);
+	else
+	{
+		if (ft_strncmp(env[col], "PWD=", 4) == 0)
+		{
+			ret = ft_substr(env[col], 4, UINT_MAX);
+			return (ret);
+		}
+	}
+	return (ret);
 }

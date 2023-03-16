@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 15:51:39 by aespinos          #+#    #+#             */
-/*   Updated: 2023/03/08 20:50:03 by aespinos         ###   ########.fr       */
+/*   Updated: 2023/03/16 16:47:26 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,31 +34,17 @@ int	ft_print_matrix_env(char **env)
 int	ft_pwd(int *status)
 {
 	char	*ret;
+	char	buff[PATH_MAX + 1];
+	int		len;
 
-	*status = 0;
-	ret = malloc(sizeof(char) * PATH_MAX);
-	if (getcwd(ret, PATH_MAX) == NULL)
-	{
-		free(ret);
-		return (0);
-	}
-	// char	*ret;
-	// int		len;
-
-	// len = 1;
-	// ret = NULL;
-	// *status = 0;
-	// while (1)
-	// {
-	// 	ret = malloc(sizeof(char) * len);
-	// 	if (getcwd(ret, len) == NULL)
-	// 		free(ret);
-	// 	else
-	// 		break ;
-	// 	len++;
-	// }
+	len = 1;
+	ret = NULL;
+	getcwd(buff, PATH_MAX + 1);
+	ret = strdup(buff);
 	printf("%s\n", ret);
-	return (0);
+	status = 0;
+	free(ret);
+	return(0);
 }
 
 void	ft_exit2(char **str)

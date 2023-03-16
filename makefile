@@ -32,7 +32,6 @@ SRCS	= 	builtins.c \
 			utils.c \
 			wait_input.c \
 			ft_dollarutils.c\
-			pipex_aux.c\
 
 OBJS	= ${SRCS:.c=.o}
 
@@ -42,7 +41,7 @@ CC	= gcc
 
 RM	= rm -f
 
-CFLAGS	= -Wall -Wextra -Werror -fsanitize=address
+CFLAGS	= -Wall -Wextra -Werror #-fsanitize=address
 
 LIBFT = libft/libft.a
 

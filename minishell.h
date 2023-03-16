@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 18:27:12 by aespinos          #+#    #+#             */
-/*   Updated: 2023/03/08 19:23:21 by aespinos         ###   ########.fr       */
+/*   Updated: 2023/03/16 16:46:37 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ char		*ft_endpipe(char *oldinput);
 size_t		ft_lenchar(char const *s, int c);
 char		*get_oldpwd(char **env);
 char		*ft_putquotes_export(char *str);
+void		heredocpip(t_all *f, int *in_out_all_act, int *pip);
 int			ft_dollarutils01(char *str_aux, int co);
 t_strings	ft_dollarutils02(t_strings st, int *status, char **env, int co);
 char		*elim_dollar_putequal_str(char *str, char **env, int status);
@@ -126,9 +127,5 @@ int			ft_comp_dollar(char *str, int co);
 int			ft_errorcd(char *new_dir);
 int			ft_comp_var(char *cmds, char **env);
 char		*ft_search_home(char **env, char *home);
-void		heredocpip(t_all *aux, int out);
-void		ft_pipex_aux(int *pip, pid_t pid, int *in_out_all_act);
-int			ft_rederror(char *straux, int cont);
-char		*ft_errorred(char *str, int error);
-void		ft_comp_chdir(char *str);
+char		*ft_search_pwd(char **env);
 #endif
