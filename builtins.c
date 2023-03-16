@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 15:51:39 by aespinos          #+#    #+#             */
-/*   Updated: 2023/03/16 16:47:26 by aespinos         ###   ########.fr       */
+/*   Updated: 2023/03/16 17:05:46 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	ft_print_matrix_env(char **env)
 	return (0);
 }
 
-int	ft_pwd(int *status)
+int	ft_pwd(int *status, char **env)
 {
 	char	*ret;
 	char	buff[PATH_MAX + 1];
@@ -39,8 +39,14 @@ int	ft_pwd(int *status)
 
 	len = 1;
 	ret = NULL;
-	getcwd(buff, PATH_MAX + 1);
-	ret = strdup(buff);
+	//ret = malloc(sizeof(char) * PATH_MAX + 1);
+	if(*status == 1)
+		ret = ft_strdup(ft_search_pwd(env));
+	if (ret == NULL)
+	{
+		getcwd(buff, PATH_MAX + 1);
+		ret = strdup(buff);
+	}
 	printf("%s\n", ret);
 	status = 0;
 	free(ret);
@@ -89,7 +95,7 @@ char	**ft_builtins(t_all *head, char **env, int *status, char *home)
 	if (ft_strncmp(head->cmds[0], "exit", 10) == 0)
 		ft_exit(head->cmds, env);
 	else if (ft_strncmp(head->cmds[0], "pwd", 10) == 0)
-		ft_pwd(status);
+		ft_pwd(status, env);
 	else if (ft_strncmp(head->cmds[0], "echo", 10) == 0)
 		*status = ft_echo(head->cmds);
 	else if (ft_strncmp(head->cmds[0], "cd", 10) == 0)

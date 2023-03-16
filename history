@@ -1450,3 +1450,91 @@ cd ..
 cd ..
 mkdir a
 cd a
+cd ..
+mkdir a
+cd a
+cd a
+cd a
+cd ..
+cd ..
+cd ..
+cd ..
+mkdir a
+cd a
+cd a
+pwd
+mkdir a
+cd a
+mkdir a
+cd a
+mkdir a
+cd a
+cd ..
+cd ..
+mkdir a
+cd a
+cd ..
+cd ..
+pwd
+env
+cd .
+env
+pwd
+exit
+cd a.
+pwd
+cd a.
+pwd
+cd ..
+mkdir a
+cd a
+cd ..
+exit
+mkdir a
+cd a
+cd ..
+pwd
+mkdri a
+mkdir a
+cd a
+cd ..
+pwd
+cd ..
+cd ..
+cd ..
+cd ..
+cd ..
+cd ..
+cd ..
+cd ..
+cd ..
+mkdir a
+cd a
+mkdir a
+cd a
+mkdir a
+cd a
+cd ..
+mkdir a
+cd a
+./m
+cd a
+mkdir a
+cd a
+mkdir a
+cd a
+mkdir a
+cd a
+mkdir a
+cd a
+cd a
+mkdir a
+pwd
+cd a
+mkdir a
+cd a
+pwd
+mkdir a
+cd a
+pwd
+cd ..
