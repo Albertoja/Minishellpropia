@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 15:51:39 by aespinos          #+#    #+#             */
-/*   Updated: 2023/03/16 17:05:46 by aespinos         ###   ########.fr       */
+/*   Updated: 2023/03/21 19:35:04 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,8 @@ int	ft_pwd(int *status, char **env)
 
 	len = 1;
 	ret = NULL;
-	//ret = malloc(sizeof(char) * PATH_MAX + 1);
-	if(*status == 1)
-		ret = ft_strdup(ft_search_pwd(env));
+	if (*status == 1)
+		ret = ft_search_pwd(env);
 	if (ret == NULL)
 	{
 		getcwd(buff, PATH_MAX + 1);
@@ -50,7 +49,7 @@ int	ft_pwd(int *status, char **env)
 	printf("%s\n", ret);
 	status = 0;
 	free(ret);
-	return(0);
+	return (0);
 }
 
 void	ft_exit2(char **str)

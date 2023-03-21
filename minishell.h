@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 18:27:12 by aespinos          #+#    #+#             */
-/*   Updated: 2023/03/16 16:46:37 by aespinos         ###   ########.fr       */
+/*   Updated: 2023/03/21 19:23:07 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,4 +128,9 @@ int			ft_errorcd(char *new_dir);
 int			ft_comp_var(char *cmds, char **env);
 char		*ft_search_home(char **env, char *home);
 char		*ft_search_pwd(char **env);
+char		**ft_change_pwd(char **env, char *new_dir, int i);
+char		*ft_cd_sw(char *new_dir, char **args, int *status, int *sw);
+char		*back_three_dir(char *new_dir);
+char		*ft_change_dir(char * new_dir);
+
 #endif

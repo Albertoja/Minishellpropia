@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 16:21:46 by aespinos          #+#    #+#             */
-/*   Updated: 2023/03/06 14:57:12 by aespinos         ###   ########.fr       */
+/*   Updated: 2023/03/21 19:44:48 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,15 @@ char	*error_endpipe(void)
 {
 	printf("minishell: syntax error: unexpected end of file\n");
 	return (ft_strdup(""));
+}
+
+char	*ft_endpipe2(char *oldinput)
+{
+	free(oldinput);
+	if (g_interactive == 2)
+		return (error_endpipe());
+	else
+		return (ft_strdup(""));
 }
 
 char	*ft_endpipe(char *oldinput)
@@ -29,22 +38,14 @@ char	*ft_endpipe(char *oldinput)
 	{
 		input = readline(YELLOW">"RESET);
 		if (!input)
-		{
-			free(oldinput);
-			if (g_interactive == 2)
-				return (error_endpipe());
-			if (g_interactive == 3)
-				return (ft_strdup(""));
-		}
+			return (ft_endpipe2(oldinput));
 		if (input && *input)
 		{
-			input = ft_strdup(input);
 			oldinput = ft_strjoin(oldinput, input);
 			free(input);
 			return (oldinput);
 		}
 	}
 	free(input);
-	printf("old = %s\n", oldinput);
 	return (oldinput);
 }
