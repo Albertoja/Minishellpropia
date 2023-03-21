@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exe.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: magonzal <magonzal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 19:46:32 by magonzal          #+#    #+#             */
-/*   Updated: 2023/03/01 18:49:27 by aespinos         ###   ########.fr       */
+/*   Updated: 2023/03/20 18:00:36 by magonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	**exe(t_all *first, char **envp, int *status, char *home)
 	aux = first;
 	if (first->cmds[0])
 	{
-		if (!first->next->cmds)
+		if (!first->next)
 		{
 			if (!first->dir)
 			{
@@ -39,24 +39,29 @@ char	**exe(t_all *first, char **envp, int *status, char *home)
 
 void	execmd(t_all *first, char **envp, int *status)
 {
-	int		pid;
+	pid_t	pid;
+	int		i;
 	char	*path;
 
+	i = 1;
+	if (access(first->cmds[0], 0) == 0)
+	{
+		i = 0;
+		path = first->cmds[0];
+	}
 	path = get_path(first->cmds[0], envp);
-	if (!path)
+	pid = fork();
+	if (pid == 0)
 	{
-		ft_error("comand not found", first->cmds[0]);
-		*status = 127;
+		if (execve(path, &first->cmds[0], envp) == -1)
+		{
+			ft_error("command not found", first->cmds[0]);
+			*status = 127;
+		}
 	}
-	else
-	{
-		pid = fork();
-		if (pid == 0)
-			if (execve(path, &first->cmds[0], envp) == -1)
-				ft_error("command not found", first->cmds[0]);
-		waitpid(pid, status, 0);
-	}
-	free(path);
+	waitpid(pid, status, 0);
+	if (i != 0)
+		free(path);
 }
 
 void	redirections(t_all *first, char **envp, int *status)

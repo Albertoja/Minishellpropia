@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 17:28:29 by aespinos          #+#    #+#             */
-/*   Updated: 2023/03/21 19:31:27 by aespinos         ###   ########.fr       */
+/*   Updated: 2023/03/21 20:25:45 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,13 @@ char	*check_dir2(char *new_dir, char **args, int *status)
 			sw = 0;
 			return (back_three_dir(new_dir));
 		}
-		*status = ft_errorcd(args[1]);
 		if (ft_strncmp(args[1], "..", 2) == 0)
 		{
 			sw = 1;
+			*status = ft_errorcd2();
 			return (new_dir);
 		}
+		*status = ft_errorcd(args[1]);
 		free(new_dir);
 	}
 	sw = 0;

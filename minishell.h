@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 18:27:12 by aespinos          #+#    #+#             */
-/*   Updated: 2023/03/21 19:23:07 by aespinos         ###   ########.fr       */
+/*   Updated: 2023/03/21 20:20:16 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,14 @@
 # define CYAN				"\x1b[36m"
 # define BUFFER_SIZE 3
 
+typedef struct s_pxstrt
+{
+	t_all *head;
+	char **env;
+	int *status;
+	char *home;
+}	t_pxstrt;
+
 typedef struct s_strings
 {
 	char	*ret;
@@ -47,6 +55,7 @@ typedef struct s_strings
 
 extern int	g_interactive;
 
+void		print__(t_all *head);
 char		**copy_str_matrix(char **env, char *str, int a);
 char		**ft_cd(char **args, char **env, int *status, char *home);
 char		**ft_clean_quotes(char **files);
@@ -58,8 +67,6 @@ char		*copy_no_quotes(char *str);
 int			ft_echo(char **str);
 char		*elim_dollar_putequal(char *str);
 char		**exe(t_all *first, char **envp, int *status, char *home);
-char		*ft_dollar(char *input, char **env);
-char		*ft_dollar_sust_str(char *str, char **env, int *status);
 char		*ft_endquotes(char *input, char a);
 char		**ft_export(char **cmds, char **env, int *status);
 char		*ft_homepath(char **env);
@@ -107,7 +114,7 @@ void		hello_norminette(char **str, char const *s, int **i, int *a);
 void		inputredirection(t_all *f, char **envp, int *status);
 void		outputredirection(t_all *f, char **envp, int *status);
 void		outputredirectionaux(t_all *f, char **envp, char *path, int *i);
-void		pipex(t_all *aux, char **envp, int *status, char *home);
+void		pipex(t_all *head, char **envp, int *status, char *home);
 void		no_ctrlprint(void);
 void		redirections(t_all *first, char **envp, int *status);
 void		rl_replace_line(char *s, int a);
@@ -117,7 +124,7 @@ char		*ft_endpipe(char *oldinput);
 size_t		ft_lenchar(char const *s, int c);
 char		*get_oldpwd(char **env);
 char		*ft_putquotes_export(char *str);
-void		heredocpip(t_all *f, int *in_out_all_act, int *pip);
+char		*ft_dollar_sust_str(char *str, char **env, int *status);
 int			ft_dollarutils01(char *str_aux, int co);
 t_strings	ft_dollarutils02(t_strings st, int *status, char **env, int co);
 char		*elim_dollar_putequal_str(char *str, char **env, int status);
@@ -127,10 +134,13 @@ int			ft_comp_dollar(char *str, int co);
 int			ft_errorcd(char *new_dir);
 int			ft_comp_var(char *cmds, char **env);
 char		*ft_search_home(char **env, char *home);
-char		*ft_search_pwd(char **env);
+void		heredocpip(t_all *aux, int out);
+void		ft_pipex_aux(int *pip, pid_t pid, int *in_out_all_act);
+int			ft_rederror(char *straux, int cont);
+char		*ft_errorred(char *str, int error);
 char		**ft_change_pwd(char **env, char *new_dir, int i);
-char		*ft_cd_sw(char *new_dir, char **args, int *status, int *sw);
 char		*back_three_dir(char *new_dir);
-char		*ft_change_dir(char * new_dir);
-
+char		*ft_change_dir(char *new_dir);
+char		*ft_search_pwd(char **env);
+int			ft_errorcd2(void);
 #endif

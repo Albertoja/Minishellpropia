@@ -3,111 +3,95 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: magonzal <magonzal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 11:13:02 by magonzal          #+#    #+#             */
-/*   Updated: 2023/03/01 18:50:50 by aespinos         ###   ########.fr       */
+/*   Updated: 2023/03/20 17:53:59 by magonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	select_redirection_pipex(t_all *aux, int *in_out_all_act, int *pip)
+void	select_redirection_pipex(t_all *aux, int *pip, int out)
 {
-	int	fd;
+	int	i;
 
-	if (aux->dir)
+	i = -1;
+	while (aux->files && aux->files[++i])
 	{
-		if (aux->dir[0] == '2')
-		{
-			fd = open(aux->files[0], O_RDWR | O_CREAT | O_TRUNC, 0644);
-			dup2(fd, STDOUT_FILENO);
-			close(fd);
-		}
-		else if (aux->dir[0] == '1')
-		{
-			fd = open(aux->files[0], O_RDONLY, 0644);
-			dup2(fd, STDIN_FILENO);
-			close(fd);
-		}
-		else if (aux->dir[0] == '4')
-		{
-			fd = open(aux->files[0], O_RDWR | O_CREAT | O_APPEND, 0644);
-			dup2(fd, STDOUT_FILENO);
-			close(fd);
-		}
-		else if (aux->dir[0] == '3')
-			heredocpip(aux, in_out_all_act, pip);
+		if (aux->dir[i] == '2')
+			pipexoutpuredirection(aux, i);
+		else if (aux->dir[i] == '1')
+			pipexinputredirection(aux, i);
+		else if (aux->dir[i] == '4')
+			pipexappendredirection(aux, i);
+		else if (aux->dir[i] == '3')
+			heredocpip(aux, out);
 	}
+	if (aux->next != NULL && (!ft_strchr(aux->dir, '2')
+			&& !ft_strchr(aux->dir, '4')))
+		dup2(pip[1], STDOUT_FILENO);
+	else if (!ft_strchr(aux->dir, '2')
+		&& !ft_strchr(aux->dir, '4'))
+		dup2(out, STDOUT_FILENO);
 }
 
-void	declare(t_all *aux, int *in_out_all_act, int status)
+void	childprocess(t_pxstrt s, int *pip)
 {
-	in_out_all_act[0] = dup(STDIN_FILENO);
-	in_out_all_act[1] = dup(STDOUT_FILENO);
-	in_out_all_act[2] = ft_lstsize(aux) - 1;
-	in_out_all_act[3] = 1;
-	in_out_all_act[4] = status;
-}
+	int	out;
 
-void	pipex2(t_all *aux, char **envp, int *pip, int *in_out_all_act, char *home)
-{
+	out = dup(STDOUT_FILENO);
+	select_redirection_pipex(s.head, pip, out);
 	close(pip[0]);
-	dup2(in_out_all_act[0], STDIN_FILENO);
-	dup2(pip[1], STDOUT_FILENO);
 	close(pip[1]);
-	if (in_out_all_act[3] == in_out_all_act[2]) // || aux->dir[0] == '3'
+	if (is_builtin(s.head->cmds[0]) == 1)
 	{
-		dup2(pip[0], STDIN_FILENO);
-		dup2(in_out_all_act[1], STDOUT_FILENO);
+		ft_builtins(s.head, s.env, s.status, s.home);
+		exit(0);
 	}
-	if (is_builtin(aux->cmds[0]) == 1)
+	if (execve(get_path(s.head->cmds[0], s.env), s.head->cmds, s.env) == -1)
 	{
-		if (in_out_all_act[3] != in_out_all_act[2])
-			dup2(pip[1], STDOUT_FILENO);
-		ft_builtins(aux, envp, &in_out_all_act[4], home);
+		ft_error("EPX : command not found", s.head->cmds[0]);
+		exit(127);
 	}
-	else
-	{
-		select_redirection_pipex(aux, in_out_all_act, pip);
-		if (execve(get_path(aux->cmds[0], envp), aux->cmds, envp) == -1)
-			ft_error("EPX : command not found", aux->cmds[0]);
-	}
-	exit(0);
 }
 
-void	closepip(int *pip)
+t_pxstrt	definepxstrt(t_all *head, char **env, int *status, char *home)
 {
-	close(pip[1]);
-	close(pip[0]);
-	dup2(dup(STDOUT_FILENO), STDOUT_FILENO);
+	t_pxstrt	pxstrt;
+
+	pxstrt.env = env;
+	pxstrt.head = head;
+	pxstrt.status = status;
+	pxstrt.home = home;
+	return (pxstrt);
 }
 
-void	pipex(t_all *aux, char **envp, int *status, char *home)
+void	pipex(t_all *head, char **envp, int *status, char *home)
 {
-	int		pip[2];
-	int		in_out_all_act[5];
-	pid_t	pid;
+	int			pip[2];
+	t_all		*aux;
+	t_pxstrt	pxstrt;
+	pid_t		pid;
 
-	declare(aux, in_out_all_act, *status);
-	while (aux && in_out_all_act[3] <= in_out_all_act[2])
+	aux = head;
+	while (aux)
 	{
 		pipe(pip);
 		pid = fork();
 		if (pid == -1)
 			ft_error("ERROR: error on Fork", "\n");
 		if (pid == 0)
-			pipex2(aux, envp, pip, in_out_all_act, home);
-		else
 		{
-			close(pip[1]);
-			waitpid(pid, &in_out_all_act[4], 0);
-			close(in_out_all_act[0]);
-			in_out_all_act[0] = pip[0];
-			aux = aux->next;
+			pxstrt = definepxstrt(aux, envp, status, home);
+			childprocess(pxstrt, pip);
 		}
-		in_out_all_act[3]++;
+		if (aux->next != NULL)
+			dup2(pip[0], STDIN_FILENO);
+		close(pip[0]);
+		close(pip[1]);
+		aux = aux->next;
 	}
-	closepip(pip);
-	status = &in_out_all_act[4];
+	close(STDIN_FILENO);
+	waitpid(pid, status, 0);
 }
