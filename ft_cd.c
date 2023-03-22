@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 17:28:29 by aespinos          #+#    #+#             */
-/*   Updated: 2023/03/21 20:25:45 by aespinos         ###   ########.fr       */
+/*   Updated: 2023/03/22 16:07:36 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*check_dir2(char *new_dir, char **args, int *status)
 	static int	sw;
 
 	if (access(new_dir, F_OK) == 0)
-		return (new_dir);
+		return(ft_access_dir(new_dir));
 	else
 	{
 		if (sw == 1)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exe.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: magonzal <magonzal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 19:46:32 by magonzal          #+#    #+#             */
-/*   Updated: 2023/03/20 18:00:36 by magonzal         ###   ########.fr       */
+/*   Updated: 2023/03/22 16:54:01 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void	execmd(t_all *first, char **envp, int *status)
 		{
 			ft_error("command not found", first->cmds[0]);
 			*status = 127;
+			exit(127);
 		}
 	}
 	waitpid(pid, status, 0);

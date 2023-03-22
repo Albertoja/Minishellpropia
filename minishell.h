@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 18:27:12 by aespinos          #+#    #+#             */
-/*   Updated: 2023/03/21 20:20:16 by aespinos         ###   ########.fr       */
+/*   Updated: 2023/03/22 16:22:15 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,4 +143,6 @@ char		*back_three_dir(char *new_dir);
 char		*ft_change_dir(char *new_dir);
 char		*ft_search_pwd(char **env);
 int			ft_errorcd2(void);
+char		*ft_access_dir(char *new_dir);
+char		*ft_search_dir_simp(char *new_dir);
 #endif
