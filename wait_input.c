@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 18:21:59 by aespinos          #+#    #+#             */
-/*   Updated: 2023/04/03 17:06:07 by aespinos         ###   ########.fr       */
+/*   Updated: 2023/04/03 17:18:24 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@ char	**start_mini(char *input, int *status, char **env)
 	t_all	*head;
 
 	input = ft_dollar_sust_str(input, env, status);
+	input = check_str(input);
+	if(!input)
+		return (env);
 	matrix = ft_split_pipe(input, '|');
 	if (!matrix)
 		exit(0);
