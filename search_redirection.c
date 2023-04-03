@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 20:32:39 by aespinos          #+#    #+#             */
-/*   Updated: 2023/03/21 20:09:22 by aespinos         ###   ########.fr       */
+/*   Updated: 2023/04/03 16:17:36 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,11 @@ char	*search_redirection(char *straux)
 	ret = NULL;
 	while (straux[++cont])
 	{
+		
+		if (straux[cont] == '"' || straux[cont] == '\'')
+			cont = ft_jump(straux, cont);
+		if(!straux[cont])
+			break ;
 		if (straux[cont] == '<')
 		{
 			if (!ret)

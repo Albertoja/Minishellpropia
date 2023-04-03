@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 17:53:17 by aespinos          #+#    #+#             */
-/*   Updated: 2023/03/21 20:19:47 by aespinos         ###   ########.fr       */
+/*   Updated: 2023/03/22 19:32:55 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,19 +44,14 @@ int	ft_errorcd(char *new_dir)
 	return (1);
 }
 
-char	*ft_search_home(char **env, char *home)
+char	*ft_search_home(char **env)
 {
 	int	col;
 
 	col = ft_comp_var("HOME", env);
 	if (col < 0)
-	{
-		if (!home)
-			return (NULL);
-		return (home);
-	}
-	else
-		return (env[col]);
+		return (NULL);
+	return (env[col]);
 }
 
 char	*ft_search_pwd(char **env)

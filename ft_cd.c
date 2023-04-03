@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 17:28:29 by aespinos          #+#    #+#             */
-/*   Updated: 2023/03/22 16:07:36 by aespinos         ###   ########.fr       */
+/*   Updated: 2023/03/28 20:53:25 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*check_dir2(char *new_dir, char **args, int *status)
 	static int	sw;
 
 	if (access(new_dir, F_OK) == 0)
-		return(ft_access_dir(new_dir));
+		return (ft_access_dir(new_dir));
 	else
 	{
 		if (sw == 1)
@@ -41,14 +41,14 @@ char	*check_dir2(char *new_dir, char **args, int *status)
 char	*check_dir(char **args, char *path, int *status)
 {
 	char		*new_dir;
+	char		*new_path;
 
 	if (args[1] && args[1][0] == '/')
 		return (args[1]);
-	path = ft_strjoinm(path, "/");
-	new_dir = ft_strjoinm(path, args[1]);
+	new_path = ft_strjoinm(path, "/");
+	new_dir = ft_strjoin(new_path, args[1]);
 	if (new_dir[ft_strlen(new_dir) - 1] == '/')
 		new_dir = ft_change_dir(new_dir);
-	free(path);
 	return (check_dir2(new_dir, args, status));
 }
 
@@ -78,42 +78,36 @@ void	replace_pwd_oldpwd(char *new_dir, char *path, char **env, char **args)
 	}
 }
 
-char	*get_home(char **env, int *status, char *home)
+char	*get_home(char **env, int *status)
 {
 	char	*new_dir;
 
-	if (ft_strncmp(home, "HOME=", 5) == 0)
+	while (*env)
 	{
-		new_dir = ft_substr(home, 5, UINT_MAX);
-		return (new_dir);
-	}
-	else
-	{
-		while (*env)
+		if (ft_strncmp(*env, "HOME=", 5) == 0)
 		{
-			if (ft_strncmp(*env, "HOME=", 5) == 0)
-			{
-				new_dir = ft_substr(*env, 5, UINT_MAX);
-				return (new_dir);
-			}
-			env++;
+			new_dir = ft_substr(*env, 5, UINT_MAX);
+			return (new_dir);
 		}
-		ft_putstr_fd("minishell: cd : HOME not set\n", 1);
-		*status = 1;
-		return (NULL);
+		env++;
 	}
+	ft_putstr_fd("minishell: cd : HOME not set\n", 1);
+	*status = 1;
+	return (NULL);
 }
 
-char	**ft_cd(char **args, char **env, int *status, char *home)
+char	**ft_cd(char **args, char **env, int *status)
 {
 	char	*path;
 	char	*new_dir;
 
 	if (!env)
 		return (NULL);
+	if (ft_strncmp(args[0], "cd", 10) != 0)
+		return (env);
 	path = get_pwd();
 	if (!args[1] || ft_strncmp(args[1], "~", 5) == 0)
-		new_dir = get_home(env, status, home);
+		new_dir = get_home(env, status);
 	else if (ft_strncmp(args[1], "-", 5) == 0)
 		new_dir = get_oldpwd(env);
 	else

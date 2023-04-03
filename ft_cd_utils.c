@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 16:13:14 by aespinos          #+#    #+#             */
-/*   Updated: 2023/03/22 16:41:39 by aespinos         ###   ########.fr       */
+/*   Updated: 2023/03/28 16:37:30 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,8 @@ char	**ft_change_pwd(char **env, char *new_dir, int i)
 
 char	*back_three_dir(char *new_dir)
 {
-	new_dir = back_one_dir(new_dir);
-	new_dir = back_one_dir(new_dir);
-	new_dir = back_one_dir(new_dir);
+	while (access(new_dir, F_OK) != 0)
+		new_dir = back_one_dir(new_dir);
 	return (new_dir);
 }
 
@@ -68,15 +67,20 @@ char	*ft_change_dir(char *new_dir)
 
 char	*ft_access_dir(char *new_dir)
 {
-	char *simp;
+	char	*simp;
+	DIR		*open;
 
-	if (opendir(new_dir))
+	open = opendir(new_dir);
+	if (open)
+	{
+		closedir(open);
 		return (new_dir);
+	}
 	else
 	{
 		simp = ft_search_dir_simp(new_dir);
 		printf("minishell: cd: %s: Not a directory\n", simp);
 		free(simp);
 	}
-	return(new_dir);
+	return (new_dir);
 }

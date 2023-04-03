@@ -6,18 +6,34 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 18:21:50 by aespinos          #+#    #+#             */
-/*   Updated: 2023/03/22 16:42:19 by aespinos         ###   ########.fr       */
+/*   Updated: 2023/04/03 17:02:14 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// void	leaks(void)
-// {
-// 	system("leaks minishell");
-// }
-
 int	g_interactive = 0;
+
+
+void	leaks(void)
+{
+	system("leaks minishell");
+}
+
+char	**ft_mini_env(void)
+{
+	char	**ret;
+	char	*pwd;
+
+	pwd = get_pwd();
+	ret = malloc(sizeof(char *) * 4);
+	ret[0] = ft_strjoinm("PWD=", pwd);
+	ret[1] = ft_strdup("SHLVL=1");
+	ret[2] = ft_strdup("_=/usr/bin/env");
+	ret[3] = NULL;
+	free(pwd);
+	return (ret);
+}
 
 int	count_str(char **matrix)
 {
@@ -34,8 +50,8 @@ char	**copy_matrix(char **matrix)
 	char	**env;
 	char	**ret;
 
-	if (!matrix)
-		return (NULL);
+	if (!matrix || matrix == NULL || !(*matrix))
+		return (ft_mini_env());
 	env = malloc(sizeof(char *) * (count_str(matrix) + 1));
 	if (!env)
 		return (NULL);
@@ -69,18 +85,15 @@ void	ft_shlvl(char **env)
 int	main(int argc, char *argv[], char *envp[])
 {
 	char	**env;
-	char	*home;
 
-	home = NULL;
-	//atexit(leaks);
+	atexit(leaks);
 	if (argc != 1 || argv[1] || !envp)
 		return (0);
 	env = copy_matrix(envp);
 	ft_shlvl(env);
-	home = ft_search_home(env, home);
-	ft_read_history();
+	ft_read_history(env);
 	no_ctrlprint();
 	signals_handlers();
-	ft_wait_for_input(env, home);
+	ft_wait_for_input(env);
 	ft_free_matrix(env);
 }

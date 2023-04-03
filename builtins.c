@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 15:51:39 by aespinos          #+#    #+#             */
-/*   Updated: 2023/03/21 20:07:00 by aespinos         ###   ########.fr       */
+/*   Updated: 2023/03/28 20:52:48 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,23 +89,29 @@ void	ft_exit(char **str, char **envc)
 	exit(env);
 }
 
-char	**ft_builtins(t_all *head, char **env, int *status, char *home)
+char	**ft_builtins(t_all *head, char **env, int *status)
 {
+	char	*aux;
+
+	if (head->cmds[0] == NULL || !head->cmds[0])
+		return (env);
+	aux = ft_tolow(head->cmds[0]);
 	if (ft_strncmp(head->cmds[0], "exit", 10) == 0)
 		ft_exit(head->cmds, env);
-	else if (ft_strncmp(head->cmds[0], "pwd", 10) == 0)
+	else if (ft_strncmp(aux, "pwd", 10) == 0)
 		ft_pwd(status, env);
-	else if (ft_strncmp(head->cmds[0], "echo", 10) == 0)
+	else if (ft_strncmp(aux, "echo", 10) == 0)
 		*status = ft_echo(head->cmds);
-	else if (ft_strncmp(head->cmds[0], "cd", 10) == 0)
-		env = ft_cd(head->cmds, env, status, home);
-	else if (ft_strncmp(head->cmds[0], "env", 10) == 0)
+	else if (ft_strncmp(aux, "cd", 10) == 0)
+		env = ft_cd(head->cmds, env, status);
+	else if (ft_strncmp(aux, "env", 10) == 0)
 		ft_print_matrix_env(env);
 	else if (ft_strncmp(head->cmds[0], "export", 10) == 0)
 		env = ft_export(head->cmds, env, status);
 	else if (ft_strncmp(head->cmds[0], "unset", 10) == 0)
-		env = ft_unset(head->cmds, env);
+		env = ft_unset(head->cmds, env, status);
 	else
 		ft_error("command not found", head->cmds[0]);
+	free(aux);
 	return (env);
 }

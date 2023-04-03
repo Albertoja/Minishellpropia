@@ -3,38 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   exe.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: magonzal <magonzal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 19:46:32 by magonzal          #+#    #+#             */
-/*   Updated: 2023/03/22 16:54:01 by aespinos         ###   ########.fr       */
+/*   Updated: 2023/03/29 18:27:56 by magonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	**exe(t_all *first, char **envp, int *status, char *home)
+char	**exe(t_all *first, char **envp, int *status)
 {
 	t_all	*aux;
 
 	aux = first;
-	if (first->cmds[0])
+	if (!first->dir && !first->next)
 	{
-		if (!first->next)
-		{
-			if (!first->dir)
-			{
-				if (is_builtin(first->cmds[0]) == 1)
-					envp = ft_builtins(first, envp, status, home);
-				else
-					execmd(first, envp, status);
-			}
-			else
-				redirections(first, envp, status);
-		}
+		if (is_builtin(first->cmds[0]) == 1)
+			envp = ft_builtins(first, envp, status);
 		else
-			pipex(aux, envp, status, home);
+			execmd(first, envp, status);
 	}
+	else
+		pipex(aux, envp, status);
 	return (envp);
+}
+
+int	checkaccess(t_all *first, char	*path)
+{
+	if (access(first->cmds[0], 0) == 0)
+	{
+		path = first->cmds[0];
+		return (0);
+	}
+	return (1);
 }
 
 void	execmd(t_all *first, char **envp, int *status)
@@ -43,22 +45,21 @@ void	execmd(t_all *first, char **envp, int *status)
 	int		i;
 	char	*path;
 
-	i = 1;
-	if (access(first->cmds[0], 0) == 0)
-	{
-		i = 0;
-		path = first->cmds[0];
-	}
+	path = NULL;
+	i = checkaccess(first, path);
 	path = get_path(first->cmds[0], envp);
-	pid = fork();
-	if (pid == 0)
+	if (!path)
 	{
-		if (execve(path, &first->cmds[0], envp) == -1)
-		{
-			ft_error("command not found", first->cmds[0]);
-			*status = 127;
-			exit(127);
-		}
+		ft_error("command not found", first->cmds[0]);
+		*status = 1;
+		return ;
+	}
+	pid = fork();
+	if (pid == 0 && execve(path, &first->cmds[0], envp) == -1)
+	{
+		ft_error("command not found", first->cmds[0]);
+		*status = 127;
+		exit(127);
 	}
 	waitpid(pid, status, 0);
 	if (i != 0)
@@ -79,19 +80,27 @@ void	redirections(t_all *first, char **envp, int *status)
 
 int	is_builtin(char *command)
 {
-	if (ft_strncmp(command, "exit", 10) == 0)
+	char	*aux;
+	int		ret;
+
+	ret = 0;
+	aux = ft_tolow(command);
+	if (!aux)
 		return (1);
-	if (ft_strncmp(command, "echo", 10) == 0)
-		return (1);
-	if (ft_strncmp(command, "cd", 10) == 0)
-		return (1);
-	if (ft_strncmp(command, "pwd", 10) == 0)
-		return (1);
-	if (ft_strncmp(command, "env", 10) == 0)
-		return (1);
-	if (ft_strncmp(command, "export", 10) == 0)
-		return (1);
-	if (ft_strncmp(command, "unset", 10) == 0)
-		return (1);
-	return (0);
+	if (ft_strncmp(aux, "exit", 10) == 0)
+		ret = 1;
+	if (ft_strncmp(aux, "echo", 10) == 0)
+		ret = 1;
+	if (ft_strncmp(aux, "cd", 10) == 0)
+		ret = 1;
+	if (ft_strncmp(aux, "pwd", 10) == 0)
+		ret = 1;
+	if (ft_strncmp(aux, "env", 10) == 0)
+		ret = 1;
+	if (ft_strncmp(aux, "export", 10) == 0)
+		ret = 1;
+	if (ft_strncmp(aux, "unset", 10) == 0)
+		ret = 1;
+	free(aux);
+	return (ret);
 }

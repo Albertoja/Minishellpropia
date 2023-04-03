@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: magonzal <magonzal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 11:13:02 by magonzal          #+#    #+#             */
-/*   Updated: 2023/03/20 17:53:59 by magonzal         ###   ########.fr       */
+/*   Updated: 2023/03/27 15:20:49 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	select_redirection_pipex(t_all *aux, int *pip, int out)
+void	select_redirection_pipex(t_all *aux, int *pip, int *out)
 {
 	int	i;
 
@@ -26,55 +26,47 @@ void	select_redirection_pipex(t_all *aux, int *pip, int out)
 		else if (aux->dir[i] == '4')
 			pipexappendredirection(aux, i);
 		else if (aux->dir[i] == '3')
-			heredocpip(aux, out);
+			ft_readheredoc(aux, i, out[0]);
 	}
 	if (aux->next != NULL && (!ft_strchr(aux->dir, '2')
 			&& !ft_strchr(aux->dir, '4')))
 		dup2(pip[1], STDOUT_FILENO);
 	else if (!ft_strchr(aux->dir, '2')
 		&& !ft_strchr(aux->dir, '4'))
-		dup2(out, STDOUT_FILENO);
+		dup2(out[0], STDOUT_FILENO);
 }
 
-void	childprocess(t_pxstrt s, int *pip)
+void	childprocess(t_all *aux, char **envp, int *status, int *pip)
 {
-	int	out;
+	int	out[2];
 
-	out = dup(STDOUT_FILENO);
-	select_redirection_pipex(s.head, pip, out);
+	out[0] = dup(STDOUT_FILENO);
+	out[1] = dup(STDIN_FILENO);
+	select_redirection_pipex(aux, pip, out);
 	close(pip[0]);
 	close(pip[1]);
-	if (is_builtin(s.head->cmds[0]) == 1)
+	if (is_builtin(aux->cmds[0]) == 1)
 	{
-		ft_builtins(s.head, s.env, s.status, s.home);
+		ft_builtins(aux, envp, status);
 		exit(0);
 	}
-	if (execve(get_path(s.head->cmds[0], s.env), s.head->cmds, s.env) == -1)
+	if (execve(get_path(aux->cmds[0], envp), aux->cmds, envp) == -1)
 	{
-		ft_error("EPX : command not found", s.head->cmds[0]);
+		ft_error("EPX command not found", aux->cmds[0]);
 		exit(127);
 	}
 }
 
-t_pxstrt	definepxstrt(t_all *head, char **env, int *status, char *home)
+void	pipex(t_all *head, char **envp, int *status)
 {
-	t_pxstrt	pxstrt;
+	int		pip[2];
+	t_all	*aux;
+	pid_t	pid;
+	int		cmd_nbr;
 
-	pxstrt.env = env;
-	pxstrt.head = head;
-	pxstrt.status = status;
-	pxstrt.home = home;
-	return (pxstrt);
-}
-
-void	pipex(t_all *head, char **envp, int *status, char *home)
-{
-	int			pip[2];
-	t_all		*aux;
-	t_pxstrt	pxstrt;
-	pid_t		pid;
-
+	cmd_nbr = 0;
 	aux = head;
+	pid = 0;
 	while (aux)
 	{
 		pipe(pip);
@@ -82,10 +74,7 @@ void	pipex(t_all *head, char **envp, int *status, char *home)
 		if (pid == -1)
 			ft_error("ERROR: error on Fork", "\n");
 		if (pid == 0)
-		{
-			pxstrt = definepxstrt(aux, envp, status, home);
-			childprocess(pxstrt, pip);
-		}
+			childprocess(aux, envp, status, pip);
 		if (aux->next != NULL)
 			dup2(pip[0], STDIN_FILENO);
 		close(pip[0]);
@@ -93,5 +82,6 @@ void	pipex(t_all *head, char **envp, int *status, char *home)
 		aux = aux->next;
 	}
 	close(STDIN_FILENO);
-	waitpid(pid, status, 0);
+	while (waitpid(-1, NULL, WUNTRACED) != -1)
+		cmd_nbr++;
 }

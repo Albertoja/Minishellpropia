@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: magonzal <magonzal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 17:44:59 by magonzal          #+#    #+#             */
-/*   Updated: 2023/03/21 20:26:16 by aespinos         ###   ########.fr       */
+/*   Updated: 2023/03/29 18:11:25 by magonzal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ void	handler_ctrlslash(int sig)
 	sig++;
 	if (g_interactive)
 	{
+		rl_replace_line("", 0);
+		rl_on_new_line();
 		rl_on_new_line();
 		rl_redisplay();
 		return ;
@@ -59,7 +61,7 @@ void	signals_handlers(void)
 	struct sigaction	ctrlslash;
 
 	ctrlc.sa_handler = &handler_ctrlc;
-	ctrlslash.sa_handler = &handler_ctrlslash;
+	ctrlslash.sa_handler = SIG_IGN;
 	sigaction(SIGINT, &ctrlc, NULL);
 	sigaction(SIGQUIT, &ctrlslash, NULL);
 }
