@@ -21,6 +21,7 @@ int	ft_jump(char *str, int cont)
 			return(cont);
 		cont++;
 	}
+	
 	return(cont);
 }
 
