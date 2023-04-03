@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 18:21:46 by aespinos          #+#    #+#             */
-/*   Updated: 2023/04/03 14:44:58 by aespinos         ###   ########.fr       */
+/*   Updated: 2023/04/03 19:26:14 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_error(char *str, char *straux)
 
 char	*ft_errorred(char *str, int error)
 {
-	if(str)
+	if (str)
 		free(str);
 	if (error == 1)
 		printf("minishell: syntax error near unexpected token `newline'\n");

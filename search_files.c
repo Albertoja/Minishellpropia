@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 15:57:27 by aespinos          #+#    #+#             */
-/*   Updated: 2023/04/03 17:01:12 by aespinos         ###   ########.fr       */
+/*   Updated: 2023/04/03 19:35:43 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,6 @@ char	**search_files(char *str)
 			str = ft_noquotes_files(str, '"');
 		str++;
 	}
-	if (!str_aux[0])
-		return(NULL);
 	ret = ft_split_pipe(str_aux[0], '|');
 	free (str_aux[0]);
 	return (ret);

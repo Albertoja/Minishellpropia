@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 17:42:13 by aespinos          #+#    #+#             */
-/*   Updated: 2023/04/03 19:01:52 by aespinos         ###   ########.fr       */
+/*   Updated: 2023/04/03 19:34:11 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ int	ft_nm_red(char *str, int cont)
 	return (cont);
 }
 
-
 int	ft_cmds_len(char *str)
 {
 	int	len;
@@ -33,7 +32,8 @@ int	ft_cmds_len(char *str)
 	len = 0;
 	while (str[cont])
 	{
-		while(str[cont] && str[cont] != '<' && str[cont] != '>' && str[cont] != '"' && str[cont] != '\'')
+		while (str[cont] && str[cont] != '<' && str[cont] != '>'
+			&& str[cont] != '"' && str[cont] != '\'')
 		{
 			cont++;
 			len++;
@@ -52,13 +52,13 @@ int	ft_cmds_len(char *str)
 
 char	*search_cmds3(char *str, char *ret, int *cont, int *cont2)
 {
-	char aux;
+	char	aux;
 
 	aux = str[*cont];
 	ret[(*cont2)++] = str[(*cont)++];
 	while (str[*cont] && str[*cont] != aux)
 		ret[(*cont2)++] = str[(*cont)++];
-	if(str[*cont] == aux)
+	if (str[*cont] == aux)
 		ret[(*cont2)++] = str[(*cont)++];
 	return (ret);
 }
@@ -74,7 +74,8 @@ char	*search_cmds2(char *str, int len)
 	ret = malloc(sizeof(char) * (len + 1));
 	while (str[*cont])
 	{
-		while(str[*cont] && str[*cont] != '<' && str[*cont] != '>' && str[*cont] != '"' && str[*cont] != '\'')
+		while (str[*cont] && str[*cont] != '<' && str[*cont] != '>'
+			&& str[*cont] != '"' && str[*cont] != '\'')
 			ret[(*cont2)++] = str[(*cont)++];
 		if (str[*cont] == '<' || str[*cont] == '>')
 			*cont = ft_nm_red(str, *cont);
