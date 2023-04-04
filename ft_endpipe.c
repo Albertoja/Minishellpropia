@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 16:21:46 by aespinos          #+#    #+#             */
-/*   Updated: 2023/03/21 20:02:04 by aespinos         ###   ########.fr       */
+/*   Updated: 2023/04/04 19:05:39 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,6 @@ char	*ft_endpipe(char *oldinput)
 			return (oldinput);
 		}
 	}
-	free(input);
+	//free(input);
 	return (oldinput);
 }

@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 17:52:36 by aespinos          #+#    #+#             */
-/*   Updated: 2023/03/07 18:17:06 by aespinos         ###   ########.fr       */
+/*   Updated: 2023/04/04 18:59:19 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ char	*ft_endquotes(char *oldinput, char a)
 		{
 			input = search_a(input, a);
 			oldinput = ft_endquotes2(input, oldinput);
+			free(input);
 			while (input[i])
 				i++;
 			if (input[i - 1] == a)
@@ -100,6 +101,5 @@ char	*ft_endquotes(char *oldinput, char a)
 		else
 			oldinput = ft_strjoin(oldinput, "\n");
 	}
-	free(input);
 	return (oldinput);
 }

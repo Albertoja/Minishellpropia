@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 18:21:50 by aespinos          #+#    #+#             */
-/*   Updated: 2023/04/03 20:10:49 by aespinos         ###   ########.fr       */
+/*   Updated: 2023/04/04 18:25:18 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 int	g_interactive = 0;
 
-// void	leaks(void)
-// {
-// 	system("leaks minishell");
-// }
+void	leaks(void)
+{
+	system("leaks minishell");
+}
 
 char	**ft_mini_env(void)
 {
@@ -85,7 +85,7 @@ int	main(int argc, char *argv[], char *envp[])
 {
 	char	**env;
 
-	//atexit(leaks);
+	atexit(leaks);
 	if (argc != 1 || argv[1] || !envp)
 		return (0);
 	env = copy_matrix(envp);
