@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 19:26:57 by aespinos          #+#    #+#             */
-/*   Updated: 2023/04/03 19:31:46 by aespinos         ###   ########.fr       */
+/*   Updated: 2023/04/04 19:37:37 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ char	*ft_check_red(char *str)
 	int	check;
 
 	check = 0;
+	if(!str || *str)
+		return(str);
 	if (ft_check_have_red(str) == 1)
 		return (str);
 	if (ft_check_any_after(str) == 1)
