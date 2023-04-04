@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 18:27:12 by aespinos          #+#    #+#             */
-/*   Updated: 2023/04/03 16:16:30 by aespinos         ###   ########.fr       */
+/*   Updated: 2023/04/04 20:42:48 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,5 +149,6 @@ void		ft_readheredoc(t_all *head, int i, int out);
 char		*ft_tolow(char	*str);
 char		*ft_check_red(char *str);
 int			ft_jump(char *str, int cont);
+int			ft_check_quote(char *input, char a);
 
 #endif

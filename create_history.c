@@ -6,12 +6,11 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 17:47:51 by aespinos          #+#    #+#             */
-/*   Updated: 2023/04/03 20:11:53 by aespinos         ###   ########.fr       */
+/*   Updated: 2023/04/04 20:22:21 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 void	ft_read_history2(int fd)
 {

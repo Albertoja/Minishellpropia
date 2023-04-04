@@ -6,7 +6,7 @@
 /*   By: aespinos <aespinos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 17:52:36 by aespinos          #+#    #+#             */
-/*   Updated: 2023/04/04 20:08:18 by aespinos         ###   ########.fr       */
+/*   Updated: 2023/04/04 20:48:31 by aespinos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,13 @@ char	*search_a(char	*input, char a)
 	return (input);
 }
 
+char	*ft_endquotes2(char *input, char *oldinput)
+{
+	oldinput = ft_strjoin(oldinput, " \n");
+	oldinput = ft_strjoin(oldinput, input);
+	return (oldinput);
+}
+
 char	*error_endquotes(char *oldinput)
 {
 	free(oldinput);
@@ -68,17 +75,9 @@ char	*error_endquotes(char *oldinput)
 	return (ft_strdup(""));
 }
 
-char	*ft_endquotes2(char *input, char *oldinput)
-{
-	oldinput = ft_strjoin(oldinput, " \n");
-	oldinput = ft_strjoin(oldinput, input);
-	return (oldinput);
-}
-
 char	*ft_endquotes(char *oldinput, char a)
 {
 	char		*input;
-	static int	i;
 
 	while (1)
 	{
@@ -88,17 +87,14 @@ char	*ft_endquotes(char *oldinput, char a)
 			return (error_endquotes(oldinput));
 		if (input && *input)
 		{
-			input = search_a(input, a);
+			if (ft_check_quote(input, a) == 1)
+				input = search_a(input, a);
 			oldinput = ft_endquotes2(input, oldinput);
-			while (input[i])
-				i++;
-			if (input[i - 1] == a)
+			if (input[ft_strlen(input) - 1] == a)
 			{
 				free(input);
 				break ;
 			}
-			else
-				i = 0;
 			free(input);
 		}
 		else

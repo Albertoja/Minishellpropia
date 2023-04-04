@@ -35,6 +35,7 @@ SRCS	= 	builtins.c \
 			ft_cd_utils.c\
 			ft_builtins_utils.c\
 			ft_check_red.c\
+			ft_endquotesutils.c\
 
 OBJS	= ${SRCS:.c=.o}
 
